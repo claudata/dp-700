@@ -1,0 +1,1373 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guia de estudos em português para o exame DP-700: teoria, laboratórios práticos e simulado interativo.">
+  <title>DP-700 | Guia de estudos Microsoft Fabric</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = param === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f4f8ff;
+      --cp-bg-elevated: #fafdff;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #edf4ff;
+      --cp-border: #d3e2f5;
+      --cp-border-strong: #8299b8;
+      --cp-text: #152b48;
+      --cp-text-muted: #465e7d;
+      --cp-text-soft: #536b8a;
+      --cp-accent: #125ad6;
+      --cp-accent-hover: #0c46af;
+      --cp-accent-soft: rgba(18, 90, 214, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 12px 32px rgba(34, 76, 140, 0.08);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.78);
+      --cp-panel-strong: rgba(255, 255, 255, 0.92);
+      --cp-sheen: rgba(255, 255, 255, 0.8);
+      --cp-highlight: rgba(93, 159, 255, 0.2);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #101c2e;
+      --cp-bg-elevated: #142239;
+      --cp-surface: #172941;
+      --cp-surface-soft: #1d3351;
+      --cp-border: #314a6a;
+      --cp-border-strong: #708aaa;
+      --cp-text: #edf4ff;
+      --cp-text-muted: #b5c7e0;
+      --cp-text-soft: #a5bbd8;
+      --cp-accent: #8ebaff;
+      --cp-accent-hover: #b2d0ff;
+      --cp-accent-soft: rgba(142, 186, 255, 0.14);
+      --cp-accent-fg: #102445;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(16, 28, 46, 0.88);
+      --cp-panel: rgba(23, 41, 65, 0.8);
+      --cp-panel-strong: rgba(20, 34, 57, 0.94);
+      --cp-sheen: rgba(255, 255, 255, 0.06);
+      --cp-highlight: rgba(93, 159, 255, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top right, var(--cp-highlight), var(--cp-bg) 65%);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--cp-link); }
+    a:hover { color: var(--cp-accent); }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 20;
+      padding: .75rem 1rem; background: var(--cp-surface); color: var(--cp-text);
+    }
+    .skip-link:focus { left: .75rem; top: .75rem; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--cp-panel-strong); border-bottom: 1px solid var(--cp-border);
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner {
+      max-width: 1180px; margin: auto; padding: .65rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand { font-weight: 800; letter-spacing: -.02em; text-decoration: none; color: var(--cp-text); }
+    .top-actions { display: flex; align-items: center; gap: .75rem; }
+    .top-actions a { font-size: .9rem; font-weight: 650; }
+    .theme-btn, .small-btn {
+      border: 1px solid var(--cp-border); border-radius: .625rem;
+      background: var(--cp-surface); color: var(--cp-text); padding: .45rem .7rem;
+    }
+    .hero {
+      background: radial-gradient(ellipse at 90% 15%, var(--cp-highlight), var(--cp-bg-elevated) 65%);
+      border-bottom: 1px solid var(--cp-border);
+    }
+    .hero-inner { max-width: 1180px; margin: auto; padding: 4rem 1.25rem 3rem; }
+    .eyebrow {
+      color: var(--cp-accent); text-transform: uppercase; letter-spacing: .12em;
+      font-size: .78rem; font-weight: 800;
+    }
+    h1 { font-size: clamp(2.3rem, 6vw, 4.5rem); line-height: 1.04; letter-spacing: -.045em; max-width: 850px; margin: .55rem 0 1rem; }
+    .hero p { max-width: 760px; font-size: 1.12rem; color: var(--cp-text-muted); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.4rem; }
+    .pill {
+      border: 1px solid var(--cp-border); border-radius: 999px; padding: .3rem .72rem;
+      background: var(--cp-surface); font-size: .85rem; font-weight: 650;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.7rem; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 2.8rem; padding: .65rem 1rem; border-radius: .625rem;
+      background: linear-gradient(160deg, var(--cp-accent), var(--cp-accent-hover)); border: 1px solid var(--cp-accent);
+      color: var(--cp-accent-fg); text-decoration: none; font-weight: 750;
+      box-shadow: inset 0 1px 0 var(--cp-sheen), var(--cp-shadow);
+    }
+    .button:hover { background: var(--cp-accent-hover); color: var(--cp-accent-fg); }
+    .button.secondary { background: var(--cp-surface); color: var(--cp-text); border-color: var(--cp-border); }
+    .layout { max-width: 1180px; margin: auto; padding: 2rem 1.25rem 5rem; display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 2rem; }
+    aside { position: sticky; top: 4.4rem; align-self: start; max-height: calc(100vh - 5rem); overflow: auto; }
+    aside h2 { font-size: .9rem; margin: .3rem 0 .7rem; }
+    aside nav { display: grid; gap: .18rem; }
+    aside nav a {
+      color: var(--cp-text-muted); padding: .4rem .55rem; border-radius: .625rem;
+      text-decoration: none; font-size: .9rem;
+    }
+    aside nav a:hover, aside nav a:focus { background: var(--cp-accent-soft); color: var(--cp-accent); }
+    main { min-width: 0; }
+    section { margin: 0 0 3rem; }
+    h2 { font-size: clamp(1.65rem, 3vw, 2.2rem); line-height: 1.2; letter-spacing: -.025em; margin: 0 0 1rem; }
+    h3 { font-size: 1.25rem; line-height: 1.3; margin: 1.55rem 0 .5rem; }
+    h4 { font-size: 1rem; margin: 1rem 0 .35rem; }
+    p { margin: .45rem 0 .85rem; }
+    .lead { color: var(--cp-text-muted); font-size: 1.05rem; max-width: 820px; }
+    .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .8rem; margin: 1rem 0; }
+    .card {
+      background: linear-gradient(145deg, var(--cp-sheen), var(--cp-panel)), var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px; padding: 1rem; box-shadow: inset 0 1px 0 var(--cp-sheen), var(--cp-shadow);
+    }
+    .card h3, .card h4 { margin-top: 0; }
+    .stat { color: var(--cp-accent); font-size: 1.5rem; font-weight: 850; line-height: 1.2; }
+    .visual-title { margin: 1.5rem 0 .4rem; font-size: 1.05rem; }
+    .diagram {
+      margin: 1rem 0 1.4rem; padding: 1rem; border: 1px solid var(--cp-border);
+      border-radius: 16px; background: var(--cp-surface);
+    }
+    .flow {
+      display: flex; align-items: stretch; justify-content: center; gap: .55rem;
+      margin: .55rem 0; text-align: center;
+    }
+    .flow-step {
+      display: flex; flex: 1 1 0; min-width: 0; min-height: 4.1rem; align-items: center; justify-content: center;
+      padding: .65rem; border: 1px solid var(--cp-border); border-radius: .625rem; overflow-wrap: anywhere;
+      background: var(--cp-surface-soft); font-weight: 700;
+    }
+    .flow-step strong { display: block; color: var(--cp-accent); }
+    .flow-arrow { display: flex; align-items: center; color: var(--cp-accent); font-size: 1.35rem; font-weight: 800; }
+    .diagram figcaption { margin-top: .75rem; color: var(--cp-text-muted); font-size: .88rem; }
+    .week-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; margin: 1rem 0; }
+    .week-card { border-top: 4px solid var(--cp-accent); }
+    .week-card { min-width: 0; }
+    .week-card h3 { margin-bottom: .35rem; }
+    .week-card h4 { margin: .9rem 0 .2rem; }
+    .week-card ul { padding-left: 1.2rem; margin: .3rem 0; }
+    .week-number { color: var(--cp-accent); font-weight: 850; letter-spacing: .04em; }
+    .callout {
+      border-left: 4px solid var(--cp-accent); background: var(--cp-accent-soft);
+      border-radius: 0 .625rem .625rem 0; padding: .85rem 1rem; margin: 1rem 0;
+    }
+    .callout.warning { border-left-color: var(--cp-warning); }
+    .callout.success { border-left-color: var(--cp-success); }
+    .domain {
+      display: inline-block; font-size: .76rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--cp-accent); margin-bottom: .35rem;
+    }
+    .objective-list { columns: 2; column-gap: 2rem; padding-left: 1.2rem; }
+    .objective-list li { break-inside: avoid; margin: .25rem 0; }
+    .compare { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .93rem; }
+    .compare th, .compare td { border: 1px solid var(--cp-border); padding: .65rem; text-align: left; vertical-align: top; }
+    .compare th { background: var(--cp-surface-soft); }
+    .lab {
+      background: var(--cp-surface); border: 1px solid var(--cp-border);
+      border-radius: 16px; margin: 1.1rem 0; overflow: hidden;
+    }
+    .lab-head { padding: 1rem 1.1rem; background: var(--cp-surface-soft); border-bottom: 1px solid var(--cp-border); }
+    .lab-head h3 { margin: 0 0 .25rem; }
+    .lab-body { padding: 1rem 1.1rem; }
+    .lab ol, .lab ul { padding-left: 1.3rem; }
+    .lab li { padding-left: .15rem; margin: .4rem 0; }
+    .checklist { list-style: none; padding: 0 !important; }
+    .checklist li { display: flex; gap: .55rem; align-items: flex-start; }
+    .checklist input { margin-top: .38rem; accent-color: var(--cp-accent); }
+    .code {
+      overflow-x: auto; white-space: pre; font-family: Consolas, "Courier New", Courier, monospace;
+      background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+      border-radius: .625rem; padding: .85rem; font-size: .86rem;
+    }
+    .demo-card {
+      margin: 1.4rem 0; padding: 1.1rem; border: 1px solid var(--cp-border);
+      border-radius: 16px; background: var(--cp-panel); box-shadow: var(--cp-shadow);
+    }
+    .demo-card h3, .demo-card h4 { margin-top: 0; }
+    .demo-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .75rem 0; }
+    .demo-toolbar button:disabled { opacity: .5; cursor: not-allowed; }
+    .demo-stage {
+      padding: 1rem; border-radius: .625rem; border: 1px solid var(--cp-border);
+      background: var(--cp-surface-soft); min-height: 7rem;
+    }
+    .demo-stage h4 { margin: .25rem 0; }
+    .demo-stage p { margin-bottom: 0; }
+    .demo-step { display: none; }
+    .demo-step.active { display: block; }
+    .demo-status { margin-left: auto; font-size: .85rem; color: var(--cp-text-muted); }
+    .snippet-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin: .5rem 0; }
+    .snippet-status { font-size: .85rem; color: var(--cp-text-muted); }
+    .demo-card summary { cursor: pointer; font-weight: 750; padding: .5rem 0; }
+    .demo-card pre { max-width: 100%; }
+    @media print {
+      .demo-toolbar, .snippet-actions { display: none !important; }
+      .demo-step { display: block; }
+      .demo-card { box-shadow: none; }
+    }
+    .quiz-progress { height: .55rem; border-radius: 999px; background: var(--cp-surface-soft); overflow: hidden; margin: 1rem 0; }
+    .quiz-progress span { display: block; height: 100%; width: 0; background: var(--cp-accent); transition: width .2s ease; }
+    .question { margin: 1rem 0; }
+    .question[hidden], .quiz-controls button[hidden] { display: none; }
+    .quiz-controls button:disabled { opacity: .5; cursor: not-allowed; }
+    .question legend { font-weight: 750; padding: 0 .2rem .4rem; }
+    .option {
+      display: flex; gap: .6rem; padding: .55rem .65rem; margin: .35rem 0;
+      border: 1px solid var(--cp-border); border-radius: .625rem; cursor: pointer;
+    }
+    .option:hover { background: var(--cp-accent-soft); }
+    .option input { accent-color: var(--cp-accent); margin-top: .35rem; }
+    .feedback { display: none; padding: .7rem; border-radius: .625rem; margin-top: .45rem; }
+    .feedback.show { display: block; }
+    .feedback.correct { background: var(--cp-accent-soft); border: 1px solid var(--cp-success); }
+    .feedback.incorrect { background: var(--cp-accent-soft); border: 1px solid var(--cp-danger); }
+    .quiz-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: 1rem; }
+    #quiz-result { font-weight: 750; }
+    .resource-list li { margin: .45rem 0; }
+    .footer { border-top: 1px solid var(--cp-border); padding: 1.5rem 1.25rem; color: var(--cp-text-muted); text-align: center; }
+    .small { font-size: .88rem; color: var(--cp-text-muted); }
+    .hosts { margin-top: 2rem; max-width: 900px; }
+    .hosts-title { font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--cp-accent); margin: 0 0 .65rem; }
+    .host-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+    .host-card {
+      display: flex; align-items: center; gap: .85rem; min-width: 0; padding: 1rem;
+      border: 1px solid var(--cp-border); border-radius: 16px;
+      background: linear-gradient(135deg, var(--cp-sheen), var(--cp-panel));
+      backdrop-filter: blur(16px); box-shadow: inset 0 1px 0 var(--cp-sheen), var(--cp-shadow);
+    }
+    .host-avatar {
+      flex: 0 0 3rem; height: 3rem; display: grid; place-items: center; border-radius: .8rem;
+      color: var(--cp-accent); background: linear-gradient(145deg, var(--cp-sheen), var(--cp-highlight));
+      border: 1px solid var(--cp-border); font-size: 1rem; font-weight: 800;
+    }
+    .host-name { display: block; font-size: 1.05rem; font-weight: 750; line-height: 1.35; }
+    .host-role { display: block; font-size: .85rem; line-height: 1.5; color: var(--cp-text-muted); margin-top: .2rem; }
+    .host-company { display: block; font-size: .8rem; font-weight: 700; color: var(--cp-accent); }
+    aside {
+      padding: .8rem; border: 1px solid var(--cp-border); border-radius: 16px;
+      background: var(--cp-panel); backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 0 var(--cp-sheen), var(--cp-shadow);
+    }
+    .diagram, .lab { box-shadow: inset 0 1px 0 var(--cp-sheen), var(--cp-shadow); }
+    :focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .quiz-progress span { transition: none; }
+    }
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { position: static; max-height: none; border: 1px solid var(--cp-border); border-radius: .625rem; padding: .8rem; background: var(--cp-surface); }
+      aside nav { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .card-grid, .week-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1050px) {
+      .flow { flex-wrap: wrap; }
+      .flow-step { flex-basis: 40%; }
+      .flow-arrow { display: none; }
+    }
+    @media (max-width: 560px) {
+      .hero-inner { padding-top: 2.5rem; }
+      .objective-list { columns: 1; }
+      aside nav { grid-template-columns: 1fr; }
+      .top-actions a { display: none; }
+      .flow { flex-direction: column; flex-wrap: nowrap; }
+      .flow-step { flex-basis: auto; }
+      .flow-arrow { display: flex; justify-content: center; transform: rotate(90deg); }
+      .host-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .topbar, aside, .hero-actions, .quiz-controls, .theme-btn { display: none !important; }
+      body { background: var(--cp-surface); }
+      .layout { display: block; padding: 0; }
+      .hero-inner { padding: 1rem 0; }
+      .card, .lab { break-inside: avoid; box-shadow: none; }
+      .host-card { break-inside: avoid; box-shadow: none; backdrop-filter: none; }
+      a { color: var(--cp-text); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#inicio">DP-700 · Fabric Data Engineer</a>
+      <div class="top-actions">
+        <a href="#simulado">Ir ao simulado</a>
+        <button class="theme-btn" id="theme-toggle" type="button" aria-label="Alternar tema">☾ Tema</button>
+      </div>
+    </div>
+  </header>
+  <header class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="eyebrow">Guia aberto de estudos · Português (Brasil)</div>
+      <h1>Aprenda engenharia de dados no Microsoft Fabric.</h1>
+      <p>Teoria, decisões de arquitetura, laboratórios guiados e um simulado para estudar em grupo ou no seu ritmo. O conteúdo acompanha as competências publicadas para o DP-700 e foi escrito para ensinar, não para substituir a documentação oficial.</p>
+      <div class="hero-meta">
+        <span class="pill">Nível intermediário</span>
+        <span class="pill">3 domínios · 30–35% cada</span>
+        <span class="pill">Revisão do guia: 19 out. 2026</span>
+        <span class="pill">Questões originais para prática</span>
+        <span class="pill">6 demos guiadas · scripts com fontes</span>
+      </div>
+      <div class="hero-actions">
+        <a class="button" href="#roteiro">Começar a estudar</a>
+        <a class="button secondary" href="#simulado">Fazer o simulado</a>
+        <button class="button secondary" onclick="window.print()" type="button">Imprimir / salvar PDF</button>
+      </div>
+      <div class="hosts" role="group" aria-labelledby="hosts-title">
+        <h2 class="hosts-title" id="hosts-title">Hosts do grupo de estudos</h2>
+        <div class="host-grid">
+          <div class="host-card">
+            <span class="host-avatar" aria-hidden="true">CS</span>
+            <div>
+              <span class="host-name">Claudio da Silva</span>
+              <span class="host-role">Sr Cloud Solution Architect</span>
+              <span class="host-company">Microsoft</span>
+            </div>
+          </div>
+          <div class="host-card">
+            <span class="host-avatar" aria-hidden="true">SS</span>
+            <div>
+              <span class="host-name">Sidney Siqueira</span>
+              <span class="host-role">Sr Cloud Solution Architect</span>
+              <span class="host-company">Microsoft</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside aria-label="Navegação do guia">
+      <h2>Neste guia</h2>
+      <nav>
+        <a href="#visao-geral">Visão geral</a>
+        <a href="#roteiro">Roteiro de estudo</a>
+        <a href="#dominio-1">Domain 1 · Implement/manage</a>
+        <a href="#dominio-2">Domain 2 · Ingest/transform</a>
+        <a href="#dominio-3">Domain 3 · Monitor/optimize</a>
+        <a href="#laboratorios">Laboratórios</a>
+        <a href="#scripts-demos">Scripts e demos · como usar</a>
+        <a href="#capstone">Projeto integrador</a>
+        <a href="#dicas-exame">Dicas e preparação para o exame</a>
+        <a href="#simulado">Simulado DP-700</a>
+        <a href="#glossario">Glossário</a>
+        <a href="#fontes">Fontes oficiais</a>
+      </nav>
+    </aside>
+    <main id="conteudo">
+      <section id="visao-geral">
+        <span class="domain">Comece aqui</span>
+        <h2>O que o DP-700 avalia</h2>
+        <p class="lead">A certificação Microsoft Certified: Fabric Data Engineer Associate valida conhecimentos para projetar, implementar, proteger, monitorar e otimizar soluções de engenharia de dados no Microsoft Fabric. O exame requer raciocínio sobre cenários, não apenas memorização de nomes de produtos.</p>
+        <div class="card-grid">
+          <article class="card"><div class="stat">30–35%</div><h3>Implementar e gerenciar</h3><p>Configurações de workspace, ciclo de vida, segurança, governança e orquestração.</p></article>
+          <article class="card"><div class="stat">30–35%</div><h3>Ingerir e transformar</h3><p>Padrões de carga, processamento em lote e streaming, modelagem e qualidade de dados.</p></article>
+          <article class="card"><div class="stat">30–35%</div><h3>Monitorar e otimizar</h3><p>Observabilidade, diagnóstico de erros e desempenho em diferentes workloads.</p></article>
+        </div>
+        <div class="callout"><strong>Formato informado pela Microsoft:</strong> 100 minutos. O guia DP-700 informa nota de aprovação de 700 ou mais. Questões de certificação podem variar; os itens deste site são exercícios autorais alinhados aos objetivos, não questões oficiais ou reproduzidas do exame.</div>
+        <h3>Como estudar com este material</h3>
+        <ol>
+          <li>Leia a teoria e faça uma pausa para explicar o conceito com suas próprias palavras.</li>
+          <li>Execute o laboratório em um workspace de treinamento, se disponível; nunca use dados sensíveis ou recursos de produção para experimentos.</li>
+          <li>Resolva os cenários antes de consultar as justificativas e registre os tópicos que precisam de revisão.</li>
+          <li>Confira a documentação atual: a interface e os recursos do Fabric evoluem.</li>
+        </ol>
+      </section>
+
+      <section id="roteiro">
+        <span class="domain">Plano sugerido</span>
+        <h2>Roteiro de estudo em quatro semanas</h2>
+        <p class="lead">Distribuição sugerida dos objetivos publicados no Study Guide oficial. Cada semana combina leitura, prática e revisão. Use os links oficiais ao final da página para conferir instruções de configuração atualizadas antes de executar atividades em um workspace.</p>
+        <div class="week-grid">
+          <article class="card week-card">
+            <div class="week-number">SEMANA 1 · DOMAIN 1</div>
+            <h3>Implement and manage an analytics solution</h3>
+            <p>Estude workspace settings (Spark, domain, OneLake e Apache Airflow), lifecycle management (version control, database projects e deployment pipelines), security/governance e orchestration.</p>
+            <h4>Prática</h4>
+            <ul><li>Faça o Laboratório 1: desenhe os ambientes e defina os controles de acesso.</li><li>Compare Dataflow Gen2, pipeline e notebook para um cenário.</li><li>Desenhe a promoção entre estágios de um deployment pipeline.</li></ul>
+            <h4>Revisão da semana</h4>
+            <p>Explique a diferença entre workspace/item access e row-, column-, object- ou file-level access; revise sensitivity labels, endorsement, audit logs e OneLake security.</p>
+          </article>
+          <article class="card week-card">
+            <div class="week-number">SEMANA 2 · DOMAIN 2 (BATCH)</div>
+            <h3>Ingest and transform batch data</h3>
+            <p>Estude full e incremental data loads, dimensional model preparation, data store selection e as opções de transformação: Dataflows Gen2, notebooks, KQL e T-SQL.</p>
+            <h4>Prática</h4>
+            <ul><li>Faça o Laboratório 2: analise duplicatas, missing values e late-arriving data em dados de teste.</li><li>Desenhe ingestão com pipeline e compare OneLake shortcuts com mirroring para um cenário.</li><li>Escolha PySpark, SQL ou KQL para a transformação descrita e justifique.</li></ul>
+            <h4>Revisão da semana</h4>
+            <p>Revise denormalization, grouping e aggregation. Registre quando o cenário pede full load ou incremental load e quais informações da origem sustentam a escolha.</p>
+          </article>
+          <article class="card week-card">
+            <div class="week-number">SEMANA 3 · DOMAIN 2 (STREAMING)</div>
+            <h3>Ingest and transform streaming data</h3>
+            <p>Estude streaming engine selection, Eventstream, Spark Structured Streaming, KQL, windowing functions e as escolhas de native tables/OneLake shortcuts em Real-Time Intelligence.</p>
+            <h4>Prática</h4>
+            <ul><li>Faça o Laboratório 3: desenhe o processamento de eventos e uma windowing function conforme o cenário.</li><li>Compare Eventstream, Spark Structured Streaming e KQL a partir dos requisitos apresentados.</li><li>Investigue a diferença entre standard OneLake shortcut e query acceleration para OneLake shortcuts no contexto do objetivo do exame.</li></ul>
+            <h4>Revisão da semana</h4>
+            <p>Revise o tratamento de duplicatas e late-arriving data em streaming. Consulte a documentação específica do recurso e da configuração escolhida; não assuma que opções são intercambiáveis entre engines.</p>
+          </article>
+          <article class="card week-card">
+            <div class="week-number">SEMANA 4 · DOMAIN 3 + CONSOLIDAÇÃO</div>
+            <h3>Monitor and optimize an analytics solution</h3>
+            <p>Estude monitoramento de data ingestion, data transformation e semantic model refresh; alert configuration; resolução de erros e performance optimization.</p>
+            <h4>Prática</h4>
+            <ul><li>Use o Laboratório 3 para diagnosticar um problema ao longo de ingestion, transformation e consumo.</li><li>Revise erros de pipeline, Dataflow Gen2, notebook, Eventhouse, Eventstream, T-SQL e OneLake shortcuts.</li><li>Faça o capstone e responda ao simulado sem consultar as explicações; depois revise cada justificativa.</li></ul>
+            <h4>Revisão final</h4>
+            <p>Revise os três domains e a lista de objetivos oficiais. Identifique lacunas e volte à documentação Microsoft correspondente antes da avaliação.</p>
+          </article>
+        </div>
+        <figure class="diagram" aria-label="Distribuição visual do roteiro de quatro semanas">
+          <div class="flow">
+            <div class="flow-step"><span><strong>Week 1</strong>Implement/manage</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Week 2</strong>Batch ingestion/transformation</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Week 3</strong>Streaming ingestion/transformation</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Week 4</strong>Monitor/optimize + review</span></div>
+          </div>
+          <figcaption>Sequência didática sugerida. Os três domains oficiais têm peso publicado de 30–35% cada; as semanas 2 e 3 dividem o domain de ingestion and transformation para dedicar tempo a batch e streaming.</figcaption>
+        </figure>
+        <div class="callout warning"><strong>Estudo em grupo:</strong> discutam as alternativas previstas nos objetivos do Study Guide. Justifiquem cada escolha com os requisitos do cenário e confirmem os detalhes de implementação na documentação oficial do recurso.</div>
+      </section>
+
+      <section id="scripts-demos">
+        <span class="domain">Preparação · Scripts e demos</span>
+        <h2>Do roteiro à execução no Fabric</h2>
+        <p class="lead">Cada domain e cada laboratório tem uma demo guiada com passos navegáveis, script copiável e download. O roteiro de apresentação é autoral; os trechos de código são exemplos ou combinações de trechos das fontes oficiais identificadas em cada bloco.</p>
+        <div class="callout warning"><strong>O que roda aqui:</strong> apenas a navegação das demos, copiar/baixar scripts e o quiz. Esta página não conecta ao Fabric nem executa Python, Spark ou KQL. Os scripts não foram executados em um tenant Fabric nesta sessão. “Resultado esperado” descreve o que verificar na execução real, não uma saída já obtida.</div>
+        <ol>
+          <li><strong>Ambiente:</strong> conta com acesso ao Fabric e workspace de treinamento em capacidade Fabric ativa (trial ou paga). Confirme permissões para criar/executar os itens necessários.</li>
+          <li><strong>Notebook:</strong> use Python (PySpark) em um Fabric notebook. O runtime fornece <code>spark</code>, <code>display</code> e <code>notebookutils</code>; não execute essas células como um script Python local comum.</li>
+          <li><strong>Arquivos:</strong> para o exemplo batch, baixe o <a href="https://github.com/MicrosoftLearning/dp-data/raw/main/orders.zip" target="_blank" rel="noopener noreferrer">orders.zip oficial</a>, extraia e faça upload da pasta <code>orders</code> para <code>Files</code> do Lakehouse. Anexe esse Lakehouse como default ao notebook; confirme <code>Files/orders/2019.csv</code> no Explorer.</li>
+          <li><strong>KQL:</strong> o exemplo do Laboratório 3 segue o lab oficial de Eventstream: sample <strong>Bicycles</strong>, Eventstream <code>Bicycle-data</code>, tabela <code>bikes</code> e destino agregado <code>bikes-by-street</code>. Crie os itens conforme a fonte; não use os nomes fictícios de entregas como se fossem tabelas já existentes.</li>
+          <li><strong>Segurança:</strong> os trechos fornecidos leem dados/contexto e não fazem deploy, alteração de permissão ou exclusão. A preparação pela interface cria itens e pode consumir capacidade; mantenha a prática fora de produção. Só remova recursos de treinamento que você criou após concluir o estudo.</li>
+        </ol>
+        <p class="small">Mapa: <a href="#demo-domain-1">Domain 1 · contexto</a> · <a href="#demo-domain-2">Domain 2 · batch/PySpark</a> · <a href="#demo-domain-3">Domain 3 · monitoring</a> · <a href="#demo-lab-1">Lab 1 · pipeline</a> · <a href="#demo-lab-2">Lab 2 · distinct</a> · <a href="#demo-lab-3">Lab 3 · KQL</a>. Os exemplos são recortes práticos, não cobertura executável de todos os objetivos do exame.</p>
+      </section>
+
+      <section id="dominio-1">
+        <span class="domain">Domain 1 · 30–35%</span>
+        <h2>Implement and manage an analytics solution</h2>
+        <p class="small">Implementar e gerenciar uma solução analítica.</p>
+        <p class="lead">Você precisa reconhecer como organizar os workspaces, promover mudanças entre ambientes, proteger os dados e coordenar tarefas de processamento.</p>
+        <h3>1.1 Configurações de workspace</h3>
+        <p>Um workspace é uma fronteira de colaboração e administração para itens Fabric. As configurações disponíveis podem controlar comportamento de Spark, associação a domínio, uso do OneLake e recursos do Apache Airflow. O princípio de projeto é definir configurações de acordo com o padrão operacional do workspace, documentá-las e verificar impacto em custos, segurança e colaboração antes de mudar.</p>
+        <ul>
+          <li><strong>Spark workspace settings:</strong> estude as configurações de Spark disponíveis no workspace e consulte a documentação oficial para as opções e limites atuais.</li>
+          <li><strong>Domain workspace settings:</strong> estude como o workspace é configurado em relação a um domain; domain não substitui permissões de acesso.</li>
+          <li><strong>OneLake:</strong> avalie as opções de governança, acesso e organização de dados em escala do workspace/tenant.</li>
+          <li><strong>Apache Airflow workspace settings:</strong> revise as configurações incluídas no Study Guide e consulte a documentação do recurso para configuração e uso.</li>
+        </ul>
+        <h3>1.2 Ciclo de vida e implantação</h3>
+        <p>Lifecycle management (ALM) é o conjunto de práticas que permite desenvolver, revisar, testar e promover alterações com rastreabilidade. Versionamento registra mudanças; projetos de banco de dados ajudam a tratar artefatos de banco como código; deployment pipelines promovem conteúdo entre estágios. Defina como lidar com parâmetros e diferenças de ambiente, quem aprova promoções e como reverter uma alteração problemática.</p>
+        <figure class="diagram">
+          <div class="flow" role="img" aria-label="Diagrama conceitual: desenvolvimento, versionamento, teste, promoção por deployment pipeline e validação no ambiente de destino">
+            <div class="flow-step"><span><strong>Development</strong>Alteração</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Version control</strong>Histórico da mudança</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Test</strong>Validar alteração</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Deployment pipeline</strong>Promover e verificar</span></div>
+          </div>
+          <figcaption>Visual de estudo baseado nos tópicos de lifecycle management do DP-700. Confirme no Study Guide e na documentação como cada recurso se aplica ao item que você está usando.</figcaption>
+        </figure>
+        <div class="callout"><strong>Modelo mental:</strong> desenvolver → revisar/versionar → testar → promover → verificar. A promoção não elimina a necessidade de validar permissões, conexões e configurações do ambiente de destino.</div>
+        <h3>1.3 Security and governance</h3>
+        <p>Separe as perguntas “quem pode acessar o workspace ou item?” de “quais dados essa pessoa pode ver?”. Combine controles de acesso apropriados com proteção no nível dos dados. Aplique o princípio de menor privilégio e teste com identidades representativas dos usuários.</p>
+        <table class="compare">
+          <thead><tr><th>Camada / recurso</th><th>O que ajuda a controlar</th><th>Pergunta de revisão</th></tr></thead>
+          <tbody>
+            <tr><td>Workspace e item</td><td>Quem pode acessar/administrar o ambiente ou artefato.</td><td>A pessoa precisa desse nível de acesso?</td></tr>
+            <tr><td>RLS / CLS / OLS</td><td>Linhas, colunas ou objetos visíveis, conforme o recurso e artefato.</td><td>O que cada identidade pode consultar?</td></tr>
+            <tr><td>Permissões de arquivo/pasta e OneLake security</td><td>Acesso a dados organizados no OneLake, conforme a configuração aplicável.</td><td>O acesso ao item permite acesso excessivo aos dados subjacentes?</td></tr>
+            <tr><td>Dynamic data masking</td><td>Apresentação mascarada de valores em cenários compatíveis; não é, por si só, substituto de autorização.</td><td>O mascaramento atende ao risco sem confundir-se com bloqueio de acesso?</td></tr>
+            <tr><td>Rótulos, endosso e auditoria</td><td>Classificação, confiança/curadoria e registro de atividades.</td><td>Dados e itens estão identificados e atividades são auditáveis?</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Importante:</strong> valide limitações e comportamento de cada mecanismo para o item e engine específicos. Um rótulo de sensibilidade ou o endosso de um item não concede nem remove automaticamente as permissões que você precisa administrar.</p>
+        <h3>1.4 Orchestration: escolher a ferramenta</h3>
+        <table class="compare">
+          <thead><tr><th>Opção</th><th>Use quando…</th><th>Exemplo de papel</th></tr></thead>
+          <tbody>
+            <tr><td>Pipeline</td><td>O cenário pede atividades orquestradas, schedules, event-based triggers, parâmetros ou dynamic expressions.</td><td>Avalie-o para orquestrar o processo descrito.</td></tr>
+            <tr><td>Notebook</td><td>O cenário pede transformação usando notebook e tecnologias como PySpark, SQL ou KQL, conforme o caso.</td><td>Avalie-o para as etapas de transformação descritas.</td></tr>
+            <tr><td>Dataflow Gen2</td><td>O cenário pede o uso de Dataflow Gen2 para ingestão ou transformação de dados.</td><td>Consulte conectores e funcionalidades documentados para o cenário.</td></tr>
+          </tbody>
+        </table>
+        <p>Essas opções podem trabalhar juntas. Decida com base no tipo de transformação, conectores, escala, manutenção, competências da equipe e requisitos de operação. Pipelines podem usar parâmetros e expressões dinâmicas para evitar copiar fluxos por ambiente ou data; gatilhos agendados e orientados a eventos devem refletir o SLA real.</p>
+        <ul class="objective-list">
+          <li>Configurar settings de Spark</li><li>Configurar settings de domínio</li><li>Configurar settings de OneLake</li><li>Configurar settings de Apache Airflow</li>
+          <li>Configurar versionamento</li><li>Implementar database projects</li><li>Criar e configurar deployment pipelines</li>
+          <li>Controlar acesso a workspace e item</li><li>Aplicar controle row/column/object/file</li><li>Usar dynamic data masking</li>
+          <li>Aplicar sensitivity labels e endorsement</li><li>Usar auditoria Fabric e OneLake security</li>
+          <li>Escolher entre Dataflow Gen2, pipeline e notebook</li><li>Projetar schedules, event triggers, parâmetros e expressões</li>
+        </ul>
+        <article class="demo-card" id="demo-domain-1" data-demo aria-labelledby="demo-domain-1-title">
+          <span class="domain">Domain 1 · Demo guiada</span>
+          <h3 id="demo-domain-1-title">Identificar o execution context de um notebook</h3>
+          <p><strong>Objetivo:</strong> localizar notebook, workspace e default Lakehouse antes de configurar orchestration. Este script consulta o contexto; não configura ALM ou security.</p>
+          <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+          <div class="demo-stage" aria-live="polite">
+            <div class="demo-step"><h4>1 · Preparar o notebook</h4><p>Abra um Fabric notebook em Python (PySpark) no workspace de treinamento. Se quiser examinar o default Lakehouse, anexe-o ao notebook. Não é necessário criar tabela para este script.</p></div>
+            <div class="demo-step"><h4>2 · Executar o script</h4><p>Copie o código abaixo para uma célula e selecione Run cell. O pacote NotebookUtils está disponível no runtime Fabric; não instale um pacote homônimo com pip.</p></div>
+            <div class="demo-step"><h4>3 · Verificar a saída real</h4><p>Confira Notebook, Workspace e Lakehouse. Sem default Lakehouse, o exemplo imprime None. Nomes e valores dependem do ambiente; não publique metadados do seu tenant sem revisão.</p></div>
+            <div class="demo-step"><h4>4 · Debrief com o grupo</h4><p>Peça ao participante para apontar o workspace correto antes de executar uma atividade. Depois compare execução interativa com execução por pipeline no Lab 1. Contexto não substitui verificação de permissões.</p></div>
+          </div>
+          <details open><summary>Script · Python (PySpark) · somente leitura</summary>
+            <pre class="code" id="script-domain-1" data-language="python" data-filename="dp700-domain-1-context.py">context = notebookutils.runtime.context
+
+print(f"Notebook: {context['currentNotebookName']}")
+print(f"Workspace: {context['currentWorkspaceName']}")
+print(f"Lakehouse: {context['defaultLakehouseName'] or 'None'}")</pre>
+            <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-domain-1">Copiar script</button><button class="small-btn" type="button" data-download="script-domain-1">Baixar .py</button><span class="snippet-status" role="status"></span></div>
+            <p class="small"><strong>Fonte:</strong> trecho “Access basic context information” de <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebookutils/notebookutils-runtime#access-basic-context-information" target="_blank" rel="noopener noreferrer">NotebookUtils runtime context — Microsoft Learn</a>, sem alteração de lógica.</p>
+          </details>
+        </article>
+      </section>
+
+      <section id="dominio-2">
+        <span class="domain">Domain 2 · 30–35%</span>
+        <h2>Ingest and transform data</h2>
+        <p class="small">Ingerir e transformar dados.</p>
+        <p class="lead">A prova cobre decisões de carga, seleção de armazenamento e engine, transformação em lote e processamento de eventos contínuos.</p>
+        <h3>2.1 Full load e incremental load</h3>
+        <p><strong>Full load</strong> carrega o conjunto de dados completo. <strong>Incremental load</strong> carrega dados novos ou alterados de acordo com o padrão de mudança disponível na origem. Escolha o padrão conforme a origem e os requisitos da solução; considere como o processo trata atualizações, exclusões, falhas e reprocessamento.</p>
+        <ul>
+          <li>Identifique como a origem indica registros novos ou alterados e quais limitações existem.</li>
+          <li>Defina como a execução trata falhas e reprocessamento, sem assumir uma estratégia única para todas as fontes.</li>
+          <li>Inclua updates, deletes, duplicatas e late-arriving data na análise do padrão de carga.</li>
+        </ul>
+        <h3>2.2 Armazenamento e ferramentas de lote</h3>
+        <p>Escolha onde persistir os dados e como transformá-los conforme formato, consulta, interoperabilidade, latência e padrões de consumo. No Fabric, alternativas incluem Lakehouse, Warehouse, Eventhouse e outros itens de dados. Em batch, pipeline pode fazer ingestão e coordenar passos; Dataflow Gen2, notebook, KQL ou T-SQL podem transformar, dependendo do caso.</p>
+        <table class="compare">
+          <thead><tr><th>Recurso</th><th>Ideia central</th><th>Questão para decidir</th></tr></thead>
+          <tbody>
+            <tr><td>Lakehouse</td><td>Dados em OneLake com arquivos/tabelas, adequado a workloads lake e Spark/SQL.</td><td>Precisa de flexibilidade de arquivos, engenharia Spark e tabelas analíticas?</td></tr>
+            <tr><td>Warehouse</td><td>Experiência centrada em SQL para dados relacionais e análises.</td><td>O caso se encaixa em consultas SQL e modelagem relacional gerenciada?</td></tr>
+            <tr><td>Eventhouse</td><td>Armazenamento/consulta orientados a eventos e dados de série temporal com KQL.</td><td>Há necessidade de exploração e análise operacional de eventos?</td></tr>
+            <tr><td>Shortcut / mirroring</td><td>Alternativas para acessar dados sem necessariamente montar a mesma cópia tradicional.</td><td>Precisa de acesso referenciado ou replicação gerenciada, e quais são as implicações?</td></tr>
+          </tbody>
+        </table>
+        <figure class="diagram">
+          <div class="flow" role="img" aria-label="Fluxo visual de batch data: origem, opções de ingestão, opções de transformação, armazenamento e consumo">
+            <div class="flow-step"><span><strong>Data source</strong>Origem</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Ingestion</strong>Pipeline / mirroring / shortcut</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Transformation</strong>Dataflow Gen2 / notebook / SQL / KQL</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Data store</strong>Lakehouse / Warehouse / Eventhouse</span></div>
+          </div>
+          <figcaption>Representação visual das opções citadas no Study Guide, não uma arquitetura obrigatória. Selecione os itens conforme a origem, transformação e destino do cenário.</figcaption>
+        </figure>
+        <p><strong>Shortcuts do OneLake</strong> referenciam dados em outro local suportado e evitam duplicação de cópia lógica em certos cenários; dependem da disponibilidade da origem e de permissões corretas. <strong>Mirroring</strong> replica dados de fontes suportadas para o Fabric para cenários analíticos próximos do tempo real. Compare origem suportada, latência, custos, atualização, governança e requisitos de transformação antes de escolher.</p>
+        <h3>2.3 Data preparation and transformation</h3>
+        <p>Dimensionalizar é organizar dados para análise em torno de fatos (eventos/medidas) e dimensões (contexto descritivo). A preparação pode incluir chaves substitutas, padronização, deduplicação, agregação e denormalização para consumo. Preserve significado de negócio e rastreabilidade, e defina comportamento para problemas de qualidade.</p>
+        <ul>
+          <li><strong>Duplicatas:</strong> defina chave natural/evento, regra de sobrevivência e idempotência.</li>
+          <li><strong>Valores ausentes:</strong> distinga “desconhecido”, “não aplicável” e erro de origem; não substitua por zero sem justificativa.</li>
+          <li><strong>Atrasos:</strong> escolha se eventos tardios atualizam agregados, entram em correções ou são encaminhados para tratamento.</li>
+          <li><strong>Agregação:</strong> preserve granularidade e evite somar medidas não aditivas de maneira incorreta.</li>
+        </ul>
+        <h3>2.4 Streaming data, Eventstream e windowing functions</h3>
+        <p>Streaming trata eventos continuamente e exige decidir latência, ordenação, estado, janelas, duplicação, tolerância a atraso e destino. O guia lista Eventstream, Spark Structured Streaming e KQL como competências de processamento. Eventstream ajuda a configurar fluxo de eventos e roteamento; Spark pode implementar transformações stateful/código; KQL é central em exploração e processamento no Real-Time Intelligence.</p>
+        <p>O Study Guide inclui <strong>windowing functions</strong> como objetivo. O tipo de janela e os detalhes de configuração dependem do mecanismo escolhido; consulte a documentação oficial de Eventstream, Spark Structured Streaming ou KQL para a implementação específica. O exercício desta página usa um cenário de janela para praticar a leitura do requisito, não prescreve sintaxe.</p>
+        <div class="callout"><strong>Tabelas nativas x shortcuts em Real-Time Intelligence:</strong> compare necessidade de ingestão/armazenamento local e performance previsível com acesso referenciado ao dado. O guia diferencia shortcuts padrão de opções com query acceleration; avalie a origem, o perfil de consulta, atualização e a configuração atualmente suportada.</div>
+        <ul class="objective-list">
+          <li>Implementar cargas full e incremental</li><li>Preparar dados para modelo dimensional</li><li>Projetar carga de streaming</li>
+          <li>Escolher store apropriado</li><li>Selecionar Dataflows Gen2, notebooks, KQL ou T-SQL</li><li>Criar e administrar OneLake shortcuts</li>
+          <li>Implementar mirroring</li><li>Ingerir via pipelines</li><li>Transformar com PySpark, SQL e KQL</li><li>Denormalizar e agregar</li>
+          <li>Tratar duplicatas, ausências e atrasos</li><li>Selecionar engine de streaming</li><li>Escolher tabela nativa ou shortcut em RTI</li>
+          <li>Comparar shortcut padrão e query acceleration</li><li>Processar com Eventstream, Structured Streaming e KQL</li><li>Criar funções de janela</li>
+        </ul>
+        <article class="demo-card" id="demo-domain-2" data-demo aria-labelledby="demo-domain-2-title">
+          <span class="domain">Domain 2 · Demo guiada</span>
+          <h3 id="demo-domain-2-title">Ler CSV com schema e executar grouping/aggregation</h3>
+          <p><strong>Pré-requisitos:</strong> complete a preparação de <a href="#scripts-demos">orders.zip e default Lakehouse</a>. O arquivo <code>2019.csv</code> do laboratório não tem header; por isso o exemplo aplica um schema explícito.</p>
+          <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+          <div class="demo-stage" aria-live="polite">
+            <div class="demo-step"><h4>1 · Conferir origem</h4><p>No Lakehouse Explorer, confirme Files/orders/2019.csv. Abra o notebook a partir desse Lakehouse e confirme o default Lakehouse com o script do Domain 1.</p></div>
+            <div class="demo-step"><h4>2 · Ler com schema</h4><p>Execute o script abaixo no notebook. Compare os nove campos do schema com o arquivo oficial; a célula display(df) deve mostrar colunas nomeadas, não _c0, _c1.</p></div>
+            <div class="demo-step"><h4>3 · Examinar aggregation</h4><p>Na segunda saída, verifique uma linha por Item e a soma de Quantity. No exemplo oficial, Quantity é a única coluna numérica restante após select; o resultado não é Revenue.</p></div>
+            <div class="demo-step"><h4>4 · Variar usando a fonte</h4><p>O laboratório oficial também mostra a leitura de Files/orders/*.csv para 2019–2021. Faça essa extensão seguindo a fonte e confira os anos. Não trate essa leitura completa como uma implementação de incremental load.</p></div>
+          </div>
+          <details><summary>Script · Python (PySpark) · leitura e aggregation</summary>
+            <pre class="code" id="script-domain-2" data-language="python" data-filename="dp700-domain-2-batch.py">from pyspark.sql.types import *
+
+orderSchema = StructType([
+    StructField("SalesOrderNumber", StringType()),
+    StructField("SalesOrderLineNumber", IntegerType()),
+    StructField("OrderDate", DateType()),
+    StructField("CustomerName", StringType()),
+    StructField("Email", StringType()),
+    StructField("Item", StringType()),
+    StructField("Quantity", IntegerType()),
+    StructField("UnitPrice", FloatType()),
+    StructField("Tax", FloatType())
+])
+
+df = spark.read.format("csv").schema(orderSchema).load("Files/orders/2019.csv")
+display(df)
+
+productSales = df.select("Item", "Quantity").groupBy("Item").sum()
+display(productSales)</pre>
+            <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-domain-2">Copiar script</button><button class="small-btn" type="button" data-download="script-domain-2">Baixar .py</button><span class="snippet-status" role="status"></span></div>
+            <p class="small"><strong>Fonte:</strong> combinação das células “Create a DataFrame” e “Aggregate and group data in a DataFrame” do <a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/02-analyze-spark.html" target="_blank" rel="noopener noreferrer">lab oficial Analyze data with Apache Spark in Fabric</a>. Não há valores de resultado pré-calculados nesta página.</p>
+          </details>
+        </article>
+      </section>
+
+      <section id="dominio-3">
+        <span class="domain">Domain 3 · 30–35%</span>
+        <h2>Monitor and optimize an analytics solution</h2>
+        <p class="small">Monitorar e otimizar uma solução analítica.</p>
+        <p class="lead">Operação envolve perceber um problema, seguir a linhagem das dependências, identificar a causa e confirmar que a correção melhorou o resultado.</p>
+        <h3>3.1 Monitor Fabric items</h3>
+        <p>O Study Guide pede monitoramento de data ingestion, data transformation e semantic model refresh, além de alert configuration. Ao praticar, consulte os recursos de monitoramento disponíveis para cada item e avalie as etapas do cenário; um status concluído em uma atividade não confirma, por si só, a atualização de todas as etapas seguintes.</p>
+        <figure class="diagram">
+          <div class="flow" role="img" aria-label="Pontos de monitoramento do Study Guide: data ingestion, data transformation e semantic model refresh">
+            <div class="flow-step"><span><strong>Monitor</strong>Data ingestion</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Monitor</strong>Data transformation</span></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>Monitor</strong>Semantic model refresh</span></div>
+          </div>
+          <figcaption>Os três itens são objetivos explícitos do Study Guide. O diagrama representa uma sequência de investigação possível; não afirma dependência obrigatória entre os itens.</figcaption>
+        </figure>
+        <h3>3.2 Método para identificar erros</h3>
+        <ol>
+          <li>Defina o sintoma e o horário: dado ausente, atraso, falha ou degradação.</li>
+          <li>Localize o item e a execução afetada; leia mensagem, atividade, parâmetros, logs e dependências.</li>
+          <li>Verifique fonte, credenciais/conexões, permissões, esquema, limites e alterações recentes.</li>
+          <li>Reproduza com um subconjunto seguro; formule hipótese e mude uma variável por vez.</li>
+          <li>Corrija, reexecute com segurança e verifique qualidade, etapa downstream e frescor do consumo.</li>
+          <li>Registre causa, ação corretiva, prevenção e alerta/runbook que reduzirá o tempo para detectar.</li>
+        </ol>
+        <p>O guia inclui erros de pipelines, Dataflow Gen2, notebooks, Eventhouse, Eventstream, T-SQL e OneLake shortcuts. Para shortcuts, por exemplo, investigue disponibilidade da origem, caminho, permissões e alterações na localização; para um erro SQL, verifique objeto, tipo, esquema, consulta e contexto de execução.</p>
+        <h3>3.3 Otimização: medir, encontrar, ajustar</h3>
+        <p>Estabeleça uma linha de base antes de otimizar. Use duração, throughput, volume, uso de recursos, plano de consulta e frescor. Ajuste o componente que domina o custo/latência e repita a medição.</p>
+        <table class="compare">
+          <thead><tr><th>Área</th><th>Investigue</th><th>Primeiro princípio</th></tr></thead>
+          <tbody>
+            <tr><td>Lakehouse</td><td>Layout, tamanho/quantidade de arquivos, manutenção de tabelas e padrão de leitura.</td><td>Melhore organização e elimine trabalho desnecessário, validando o padrão de consulta.</td></tr>
+            <tr><td>Pipeline</td><td>Etapas seriais, cópias repetidas, concorrência e gargalos de origem/destino.</td><td>Reduza movimentos/etapas e paralelize somente quando seguro.</td></tr>
+            <tr><td>Warehouse / consulta</td><td>Plano, filtros, junções, volume lido e modelagem.</td><td>Evite ler/processar dados desnecessários; compare planos e resultados.</td></tr>
+            <tr><td>Spark</td><td>Skew, partições, shuffle, cache, tamanho de entrada e recursos.</td><td>Corrija a causa observada antes de simplesmente escalar recursos.</td></tr>
+            <tr><td>Eventstream / Eventhouse</td><td>Taxa de entrada, operadores, roteamento, consultas e retenção/configuração.</td><td>Reduza trabalho por evento e alinhe consulta e ingestão ao padrão de uso.</td></tr>
+          </tbody>
+        </table>
+        <ul class="objective-list">
+          <li>Monitorar ingestão</li><li>Monitorar transformação</li><li>Monitorar refresh de modelo semântico</li><li>Configurar alertas</li>
+          <li>Diagnosticar pipeline e Dataflow Gen2</li><li>Diagnosticar notebook e Eventhouse</li><li>Diagnosticar Eventstream e T-SQL</li>
+          <li>Diagnosticar OneLake shortcuts</li><li>Otimizar tabelas Lakehouse</li><li>Otimizar pipeline e Warehouse</li>
+          <li>Otimizar Eventstream/Eventhouse</li><li>Otimizar Spark</li><li>Otimizar consultas</li>
+        </ul>
+        <article class="demo-card" id="demo-domain-3" data-demo aria-labelledby="demo-domain-3-title">
+          <span class="domain">Domain 3 · Demo guiada</span>
+          <h3 id="demo-domain-3-title">Correlacionar notebook e Monitoring hub</h3>
+          <p><strong>Escopo:</strong> logging de contexto e observação de uma execução. Não é benchmark, não configura alertas e não faz otimização automática.</p>
+          <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+          <div class="demo-stage" aria-live="polite">
+            <div class="demo-step"><h4>1 · Registrar contexto</h4><p>Execute o script em um Fabric notebook. Identifique workspace/notebook na mensagem. O currentRunId é específico de reference runs; o fallback “interactive” deste exemplo não é prova de que uma execução não veio de pipeline.</p></div>
+            <div class="demo-step"><h4>2 · Abrir Monitor</h4><p>Abra Monitor na navegação Fabric e localize a atividade pelo item, workspace e horário. Siga o laboratório oficial para criar atividades observáveis de notebook e Dataflow Gen2.</p></div>
+            <div class="demo-step"><h4>3 · Inspecionar evidência</h4><p>Use Historical runs e View detail, conforme disponível no item. Registre Status, Start time, End time e Duration; só use números obtidos da execução real. A visibilidade depende das suas permissões.</p></div>
+            <div class="demo-step"><h4>4 · Debrief operacional</h4><p>Compare as execuções e investigue mudanças em entrada, recursos e etapas antes de atribuir uma diferença a uma otimização. Status Succeeded não comprova qualidade nem semantic model refresh downstream.</p></div>
+          </div>
+          <details><summary>Script · Python (PySpark) · contexto para logging</summary>
+            <pre class="code" id="script-domain-3" data-language="python" data-filename="dp700-domain-3-logging.py">context = notebookutils.runtime.context
+
+run_id = context.get("currentRunId") or "interactive"
+log_prefix = (
+    f"[{context['currentWorkspaceName']}/{context['currentNotebookName']}]"
+    f" run={run_id}"
+)
+
+print(f"{log_prefix} Processing started")</pre>
+            <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-domain-3">Copiar script</button><button class="small-btn" type="button" data-download="script-domain-3">Baixar .py</button><span class="snippet-status" role="status"></span></div>
+            <p class="small"><strong>Fontes:</strong> exemplo “Include context in logging” de <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebookutils/notebookutils-runtime#include-context-in-logging" target="_blank" rel="noopener noreferrer">NotebookUtils runtime context</a> e roteiro <a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/18-monitor-hub.html" target="_blank" rel="noopener noreferrer">Monitor Fabric activity in the monitoring hub — MicrosoftLearning</a>.</p>
+          </details>
+        </article>
+      </section>
+
+      <section id="laboratorios">
+        <span class="domain">Aprendizagem prática</span>
+        <h2>Laboratórios guiados</h2>
+        <p class="lead">Os cenários abaixo são exercícios didáticos autorais para praticar os tópicos do Study Guide; não são instruções oficiais de configuração nem questões do exame. Use um workspace de treinamento e siga a documentação oficial do item escolhido. Se não tiver acesso ao Fabric, conclua o desenho e as perguntas de revisão sem executar alterações.</p>
+        <article class="lab" id="lab-1">
+          <div class="lab-head"><h3>Laboratório 1 · Ambientes, acesso e orquestração</h3><div class="small">Tempo sugerido: 45–60 min · Domínio: implementar e gerenciar</div></div>
+          <div class="lab-body">
+            <p><strong>Cenário:</strong> uma equipe publica dados de pedidos para analistas. Há desenvolvimento, teste e produção; analistas só podem acessar os dados necessários; a carga noturna inicia após a entrega de arquivos.</p>
+            <h4>Parte A — Desenho (sem workspace)</h4>
+            <ol>
+              <li>Desenhe três estágios e identifique quem cria, revisa, aprova e consome em cada um.</li>
+              <li>Liste os itens (pipeline, notebook ou Dataflow Gen2, Lakehouse/Warehouse) e as conexões por ambiente.</li>
+              <li>Indique onde versionar e como promover; defina o que validar após cada promoção.</li>
+              <li>Monte uma matriz: função → workspace/item → dado permitido. Separe acesso ao item de filtragem/mascaramento.</li>
+              <li>Descreva o gatilho: evento de arquivo, validação do arquivo, carga, transformação e notificação de conclusão.</li>
+            </ol>
+            <h4>Parte B — Execução no Fabric (se disponível)</h4>
+            <ol>
+              <li>Em um workspace de treinamento, crie ou reutilize um Lakehouse e dados sintéticos de pedidos.</li>
+              <li>Crie um pipeline mínimo com uma etapa de ingestão e uma de transformação; use parâmetros para data/ambiente se apropriado.</li>
+              <li>Execute manualmente com dados de teste; examine execução, duração, entrada/saída e falhas.</li>
+              <li>Configure permissões de menor privilégio compatíveis com o ambiente de laboratório. Não publique dados pessoais.</li>
+              <li>Escreva como promover a solução e quais verificações faria no destino. Não promova para produção.</li>
+            </ol>
+            <h4>Critérios de conclusão</h4>
+            <ul class="checklist"><li><input type="checkbox"> Expliquei a diferença entre acesso ao workspace/item e proteção por linha/coluna.</li><li><input type="checkbox"> Justifiquei pipeline versus notebook versus Dataflow Gen2.</li><li><input type="checkbox"> Defini uma verificação pós-implantação e um plano de auditoria.</li></ul>
+            <article class="demo-card" id="demo-lab-1" data-demo aria-labelledby="demo-lab-1-title">
+              <span class="domain">Lab 1 · Demo guiada</span>
+              <h3 id="demo-lab-1-title">Executar o mesmo notebook interativamente e por pipeline</h3>
+              <p><strong>Pré-requisitos:</strong> workspace com capacidade ativa; permissão para criar notebook e pipeline. <strong>Resultado esperado:</strong> comparar <code>isForPipeline</code> nas duas execuções, sem alterar permissões ou ambientes de produção.</p>
+              <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+              <div class="demo-stage" aria-live="polite">
+                <div class="demo-step"><h4>1 · Execução interativa</h4><p>Crie um notebook de treinamento e execute a expressão abaixo em uma célula PySpark. Ela mostra o runtime context, inclusive isForPipeline e isForInteractive. Registre o valor real de cada propriedade.</p></div>
+                <div class="demo-step"><h4>2 · Configurar Notebook activity</h4><p>Crie um pipeline no workspace de treinamento. Adicione uma Notebook activity e selecione o notebook em suas configurações. Salve e execute o pipeline conforme a documentação oficial de Notebook activity.</p></div>
+                <div class="demo-step"><h4>3 · Comparar execução</h4><p>Abra os detalhes da Notebook activity e a saída do notebook correspondente. Compare isForPipeline com o resultado interativo. O sucesso da atividade deve ser confirmado no run real; esta página não cria nem executa o pipeline.</p></div>
+                <div class="demo-step"><h4>4 · Roteiro do apresentador</h4><p>Pergunte: “Qual item coordena a execução? Onde fica o código? Como identificar o contexto?” Mostre pipeline, notebook e runtime context. A demo cobre orchestration/contexto; use a documentação para praticar ALM e security separadamente.</p></div>
+              </div>
+              <details><summary>Script · Python (PySpark) · runtime context</summary>
+                <pre class="code" id="script-lab-1" data-language="python" data-filename="dp700-lab-1-runtime.py">notebookutils.runtime.context</pre>
+                <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-lab-1">Copiar script</button><button class="small-btn" type="button" data-download="script-lab-1">Baixar .py</button><span class="snippet-status" role="status"></span></div>
+                <p class="small"><strong>Fonte:</strong> “View session context” de <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebookutils/notebookutils-runtime#view-session-context" target="_blank" rel="noopener noreferrer">NotebookUtils runtime context</a>. A expressão é uma célula interativa; não use python.exe para executá-la fora do Fabric.</p>
+              </details>
+              <p class="small"><strong>Roteiro de configuração:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-factory/notebook-activity" target="_blank" rel="noopener noreferrer">Notebook activity — Microsoft Learn</a>. Não há script de alteração de acesso, deployment ou criação de recursos oculto na demo.</p>
+            </article>
+          </div>
+        </article>
+        <article class="lab" id="lab-2">
+          <div class="lab-head"><h3>Laboratório 2 · Carga incremental e qualidade de dados</h3><div class="small">Tempo sugerido: 60–90 min · Domínio: ingerir e transformar</div></div>
+          <div class="lab-body">
+            <p><strong>Dados:</strong> pedidos com <code>order_id</code>, <code>customer_id</code>, <code>updated_at</code>, <code>amount</code> e <code>status</code>. Há atualizações, possíveis duplicatas e registros sem valor.</p>
+            <ol>
+              <li>Escolha uma chave e um marcador de alteração. Explique como sua fonte representa exclusões; se não houver suporte, documente a limitação.</li>
+              <li>Registre o watermark inicial e planeje uma sobreposição pequena ou reconciliação para evitar perdas em limites de timestamp.</li>
+              <li>Injete dados de teste: pedido repetido, atualização de status, valor ausente e atualização atrasada. Decida a regra para cada um.</li>
+              <li>Descreva como manter os dados de origem e produzir dados transformados para análise, conforme o armazenamento e o engine escolhidos.</li>
+              <li>Modele uma tabela fato de pedidos e dimensões apropriadas. Declare a granularidade da fato e a regra de chave.</li>
+              <li>Simule a reexecução da mesma janela; compare contagens e chaves para verificar idempotência.</li>
+              <li>Escolha engine e orquestração: pipeline para coordenar; SQL, notebook/PySpark ou Dataflow Gen2 para transformar conforme necessidade.</li>
+            </ol>
+            <h4>Do cenário ao dado disponível</h4>
+            <p>O cenário de pedidos acima é um exercício de design, não uma tabela disponibilizada por esta página. Para a execução abaixo, use os dados oficiais <code>orders.zip</code>, cujo schema é diferente. A demo exercita <code>select</code>, <code>count</code> e <code>distinct</code>; não implementa incremental load ou tratamento de late-arriving data.</p>
+            <h4>Critérios de conclusão</h4>
+            <ul class="checklist"><li><input type="checkbox"> Posso explicar quando full load é apropriado e o que torna incremental confiável.</li><li><input type="checkbox"> Defini tratamento de duplicados, nulos, atrasos e reprocessamento.</li><li><input type="checkbox"> Documentei granularidade e como reconciliar raw com curated.</li></ul>
+            <article class="demo-card" id="demo-lab-2" data-demo aria-labelledby="demo-lab-2-title">
+              <span class="domain">Lab 2 · Demo guiada</span>
+              <h3 id="demo-lab-2-title">Comparar registros e pares de clientes distintos</h3>
+              <p><strong>Dependência:</strong> execute primeiro o <a href="#script-domain-2">script do Domain 2</a> no mesmo notebook e na mesma sessão, para definir <code>df</code> com o schema oficial. Não há variável <code>df</code> pré-carregada pela página.</p>
+              <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+              <div class="demo-stage" aria-live="polite">
+                <div class="demo-step"><h4>1 · Preparar df</h4><p>Use o arquivo oficial de 2019 e execute o script batch do Domain 2. Confirme CustomerName e Email na saída. O cenário fictício order_id/updated_at não é o schema deste arquivo.</p></div>
+                <div class="demo-step"><h4>2 · Executar a célula seguinte</h4><p>Adicione uma célula abaixo da leitura e execute o script de customers. Ele seleciona CustomerName e Email, imprime a contagem de linhas e depois a contagem de pares distintos.</p></div>
+                <div class="demo-step"><h4>3 · Verificar sem inventar totais</h4><p>A contagem de pares distintos deve ser menor ou igual à de linhas. As contagens reais dependem dos arquivos usados. A tabela exibida deve conter somente CustomerName e Email, com pares únicos.</p></div>
+                <div class="demo-step"><h4>4 · Debrief de qualidade</h4><p>Uma pessoa pode comprar mais de uma vez: linhas repetidas no par de cliente não significam necessariamente pedidos duplicados. Explique por que distinct de clientes não substitui a definição da chave de um pedido nem implementa incremental load.</p></div>
+              </div>
+              <details><summary>Script · Python (PySpark) · executar após Domain 2</summary>
+                <pre class="code" id="script-lab-2" data-language="python" data-filename="dp700-lab-2-distinct.py">customers = df['CustomerName', 'Email']
+
+print(customers.count())
+print(customers.distinct().count())
+
+display(customers.distinct())</pre>
+                <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-lab-2">Copiar script</button><button class="small-btn" type="button" data-download="script-lab-2">Baixar .py</button><span class="snippet-status" role="status"></span></div>
+                <p class="small"><strong>Fonte:</strong> célula “Filter a DataFrame” do <a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/02-analyze-spark.html#filter-a-dataframe" target="_blank" rel="noopener noreferrer">lab oficial Analyze data with Apache Spark in Fabric</a>. O código lê o DataFrame; não remove registros da origem.</p>
+              </details>
+            </article>
+          </div>
+        </article>
+        <article class="lab" id="lab-3">
+          <div class="lab-head"><h3>Laboratório 3 · Eventos, janelas e diagnóstico</h3><div class="small">Tempo sugerido: 60–90 min · Domínios: ingestão, monitoramento e otimização</div></div>
+          <div class="lab-body">
+            <p><strong>Cenário:</strong> eventos fictícios de entrega contêm <code>event_id</code>, <code>delivery_id</code>, <code>event_time</code>, <code>event_type</code>. O time quer contagem por tipo em janelas de cinco minutos. Alguns eventos chegam tarde.</p>
+            <ol>
+              <li>Desenhe produtor → Eventstream ou outro mecanismo adequado → transformação → destino analítico → consulta/consumo.</li>
+              <li>Escolha entre Eventstream, Spark Structured Streaming ou KQL e explique volume, latência, estado, skills e operação necessários.</li>
+              <li>Defina deduplicação por ID, política de atraso/watermark e como corrigir uma janela já publicada.</li>
+              <li>Compare gravar em tabela nativa com referenciar um dado via shortcut; considere disponibilidade e perfil de consulta.</li>
+              <li>Descreva uma agregação em janela de cinco minutos. Especifique se a janela é tumbling ou sliding e como timestamps são tratados.</li>
+              <li>Simule um alerta: atraso acima do SLA. Indique sinal, limite, responsável e primeira ação.</li>
+              <li>Injete uma falha fictícia (origem indisponível, permissão ou esquema alterado) e siga o método de diagnóstico da seção 3.2.</li>
+              <li>Meça latência e throughput antes/depois de uma alteração. Registre evidência, não apenas impressão subjetiva.</li>
+            </ol>
+            <h4>Perguntas para revisão em dupla</h4>
+            <ul><li>O horário de chegada ou o horário do evento define a janela de negócio?</li><li>Como eventos atrasados afetam agregados e dashboards já atualizados?</li><li>Qual é a primeira evidência que confirma onde está o atraso?</li></ul>
+            <ul class="checklist"><li><input type="checkbox"> Desenhei o fluxo, a janela e a política de eventos tardios.</li><li><input type="checkbox"> Diferenciei erro de ingestão, transformação e consumo.</li><li><input type="checkbox"> Escolhi uma métrica de sucesso e medi a mudança.</li></ul>
+            <article class="demo-card" id="demo-lab-3" data-demo aria-labelledby="demo-lab-3-title">
+              <span class="domain">Lab 3 · Demo guiada</span>
+              <h3 id="demo-lab-3-title">Eventstream → Eventhouse → KQL</h3>
+              <p><strong>Fonte da execução:</strong> laboratório oficial com sample <strong>Bicycles</strong>. Diferentemente do cenário fictício de entregas, este roteiro usa uma <strong>Tumbling window de 5 seconds</strong>, exatamente como na fonte. A configuração cria itens/destinos de treinamento e pode consumir capacidade.</p>
+              <div class="demo-toolbar"><button class="small-btn" type="button" data-demo-prev>Anterior</button><button class="small-btn" type="button" data-demo-next>Próximo passo</button><span class="demo-status" aria-live="polite"></span></div>
+              <div class="demo-stage" aria-live="polite">
+                <div class="demo-step"><h4>1 · Source e raw destination</h4><p>No workspace de treinamento, crie Eventhouse e Eventstream Bicycle-data. Escolha Use sample data → Bicycles. Configure destino Eventhouse com Event processing before ingestion, JSON e nova tabela bikes. Save e Publish; confirme eventos em Data preview.</p></div>
+                <div class="demo-step"><h4>2 · Consultar raw data</h4><p>Na KQL database do destino, execute o primeiro script abaixo. Ele consulta registros ingeridos nas últimas 24 horas. Se não houver dados, confira Publish, origem, destino, permissões e o horário da ingestão antes de alterar a query.</p></div>
+                <div class="demo-step"><h4>3 · Criar aggregation</h4><p>No Eventstream, Edit → Transform events → Group by. Configure GroupByStreet: Sum de No_Bikes, agrupado por Street, Time window Tumbling, Duration 5 seconds, Offset 0 seconds. Conecte ao novo destino Eventhouse bikes-by-street, JSON, e publique, seguindo a fonte.</p></div>
+                <div class="demo-step"><h4>4 · Verificar e encerrar a prática</h4><p>Confira a tabela bikes-by-street e execute a query agregada abaixo. Verifique Street, Window_End_Time e TotalBikes. Compare Data preview/Data insights com o destino real. Ao terminar, encerre/remova somente os recursos de treinamento criados por você; a página não faz cleanup automático.</p></div>
+              </div>
+              <details><summary>Script 1 · KQL · raw data nas últimas 24 horas</summary>
+                <pre class="code" id="script-lab-3" data-language="kql" data-filename="dp700-lab-3-ingestion.kql">bikes
+| where ingestion_time() between (now(-1d) .. now())</pre>
+                <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-lab-3">Copiar script</button><button class="small-btn" type="button" data-download="script-lab-3">Baixar .kql</button><span class="snippet-status" role="status"></span></div>
+              </details>
+              <details><summary>Script 2 · KQL · consultar o destino de aggregation</summary>
+                <pre class="code" id="script-lab-3-windows" data-language="kql" data-filename="dp700-lab-3-windows.kql">['bikes-by-street']
+| summarize TotalBikes = sum(tolong(SUM_No_Bikes)) by Window_End_Time, Street
+| sort by Window_End_Time desc , Street asc</pre>
+                <div class="snippet-actions"><button class="small-btn" type="button" data-copy="script-lab-3-windows">Copiar script</button><button class="small-btn" type="button" data-download="script-lab-3-windows">Baixar .kql</button><span class="snippet-status" role="status"></span></div>
+                <p class="small">Esta query consulta uma janela já calculada pelo Eventstream; não cria uma streaming window por si só. Use apenas o sample pequeno do lab; a consulta agregada da fonte não inclui filtro temporal. Para outros dados, confirme schema e dimensione/limite o intervalo de consulta.</p>
+              </details>
+              <p class="small"><strong>Fonte dos dois scripts e das configurações:</strong> <a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/09-real-time-analytics-eventstream.html" target="_blank" rel="noopener noreferrer">Ingest real-time data with Eventstream in Microsoft Fabric — MicrosoftLearning</a>. Se os nomes de colunas do destino gerado diferirem, consulte o schema real e a versão atual do laboratório antes de executar.</p>
+            </article>
+          </div>
+        </article>
+      </section>
+
+      <section id="capstone">
+        <span class="domain">Projeto integrador</span>
+        <h2>Capstone: plataforma analítica de entregas</h2>
+        <p><strong>Desafio:</strong> uma empresa de entregas precisa de relatórios diários de pedidos e clientes e de um painel quase em tempo real de status. Há origem relacional e eventos contínuos; duplicatas e atrasos acontecem. Certos usuários não devem ver informações identificáveis de clientes.</p>
+        <div class="card">
+          <h3>Entregável do grupo: desenho de uma página</h3>
+          <ol>
+            <li>Arquitetura e escolha de storage para batch e streaming, incluindo justificativa.</li>
+            <li>Estratégia incremental/full, watermark, reprocessamento, reconciliação e tratamento de duplicados, ausências e atrasos.</li>
+            <li>Transformações e modelo dimensional: granularidade, fatos, dimensões, chaves e regras de qualidade.</li>
+            <li>Orquestração: dependências, parâmetros, schedule/event triggers e falha/retry.</li>
+            <li>Segurança: workspace, item, dados, labels/endorsement/audit e limites do mascaramento.</li>
+            <li>ALM: versionamento, testes, promoção por estágios e verificação do destino.</li>
+            <li>Observabilidade: freshness, latência, taxa de erro, duração e alertas.</li>
+            <li>Uma hipótese de otimização para cada camada e como será medida.</li>
+          </ol>
+          <p><strong>Rubrica:</strong> cada escolha responde a um requisito; os limites entre acesso e visibilidade estão explícitos; dados tardios e recuperação estão considerados; métricas são mensuráveis; trade-offs e riscos foram registrados.</p>
+        </div>
+      </section>
+
+      <section id="dicas-exame" aria-labelledby="dicas-exame-titulo">
+        <span class="domain">Estratégia de preparação · Do estudo à prova</span>
+        <h2 id="dicas-exame-titulo">Dicas detalhadas para se preparar e passar no DP-700</h2>
+        <p class="lead">O objetivo é conseguir justificar decisões, executar tarefas e diagnosticar problemas nos três domínios — não decorar alternativas. Esta seção combina regras oficiais com recomendações didáticas do grupo; nenhuma estratégia ou pontuação de prática garante aprovação.</p>
+        <div class="callout"><strong>Como usar:</strong> comece pelo diagnóstico, aplique as dicas durante as <a href="#roteiro">quatro semanas</a> e use o checklist antes de agendar. Regras e fontes conferidas em 30 de outubro de 2026; confirme as condições vigentes no agendamento.</div>
+
+        <h3>1. Entenda as regras antes de montar sua estratégia</h3>
+        <div class="card-grid">
+          <article class="card"><div class="stat">100 min</div><h4>Tempo publicado para DP-700</h4><p>A página da certificação informa 100 minutos para a avaliação. Reserve também tempo para check-in e instruções; confirme a duração no agendamento e leia a apresentação da sua prova.</p></article>
+          <article class="card"><div class="stat">≥ 700</div><h4>Nota em escala</h4><p>A aprovação exige 700 ou mais em uma escala de 1 a 1.000. <strong>Isso não equivale necessariamente a 70% de acertos.</strong> Não converta o resultado deste simulado em nota oficial.</p></article>
+          <article class="card"><div class="stat">3 domínios</div><h4>Cobertura equilibrada</h4><p>Cada domínio representa 30–35% dos objetivos. Não concentre toda a preparação em Spark ou SQL: security, orchestration, monitoring e troubleshooting também precisam de prática.</p></article>
+        </div>
+        <p class="small">Fontes: <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/">certificação DP-700</a>, <a href="#fonte-pontuacao">pontuação oficial</a> e <a href="#fonte-experiencia">experiência de exame</a>. A quantidade de questões e os componentes podem variar; não presuma uma quantidade fixa nem a presença ou ausência de labs.</p>
+
+        <h3>2. Faça um diagnóstico por habilidade, não só pela nota</h3>
+        <ol>
+          <li><strong>Liste os objetivos do Study Guide atual.</strong> Para cada um, registre: “preciso estudar”, “explico com ajuda” ou “executo e justifico sem roteiro”. Essa classificação é uma ferramenta do grupo, não uma escala da Microsoft.</li>
+          <li><strong>Use o Practice Assessment como diagnóstico.</strong> Acesse-o pela <a href="#fontes">página oficial da certificação</a>; atualmente é necessário login no AI Skills Navigator. Resolva antes de consultar as justificativas e anote também os acertos por tentativa.</li>
+          <li><strong>Registre a causa da lacuna.</strong> Separe desconhecimento do conceito, confusão entre recursos, leitura incompleta e dificuldade de executar. Cada causa pede uma revisão diferente.</li>
+          <li><strong>Feche o ciclo.</strong> Leia a documentação do ponto fraco, faça uma prática curta e explique novamente sem consultar. Repetir a mesma questão até decorar a letra não demonstra domínio.</li>
+        </ol>
+        <div class="card">
+          <h4>Exemplo de registro de revisão — cenário autoral</h4>
+          <p><strong>Lacuna:</strong> confundi acesso ao item com acesso às linhas. <strong>Correção:</strong> revisar os controles suportados pelo item/engine. <strong>Evidência prática:</strong> testar identidades com permissões distintas em um ambiente de treinamento. <strong>Reteste:</strong> explicar por que sensitivity label ou endorsement não substitui esse controle.</p>
+        </div>
+
+        <h3>3. Priorize decisões que você deve conseguir explicar</h3>
+        <div class="week-grid">
+          <article class="card">
+            <h4>Domain 1 · Implement and manage</h4>
+            <ul>
+              <li>Compare Dataflow Gen2, pipeline e notebook pela transformação e pela necessidade de orchestration, parâmetros e triggers; não trate os três como equivalentes.</li>
+              <li>Diferencie workspace access, item access e controles de dados. Verifique o suporte de row-, column-, object- e folder/file-level access no cenário.</li>
+              <li>Explique o papel de version control, database projects e deployment pipelines. Pratique verificar configurações do ambiente de destino após uma promoção.</li>
+              <li>Revise workspace settings, OneLake security, sensitivity labels, endorsement e audit logs sem confundir governança com concessão de acesso.</li>
+            </ul>
+            <p><a href="#dominio-1">Revisar teoria</a> · <a href="#lab-1">Praticar no Lab 1</a></p>
+          </article>
+          <article class="card">
+            <h4>Domain 2 · Ingest and transform</h4>
+            <ul>
+              <li>Justifique full versus incremental load, controle de watermark e reprocessamento. Mostre como evitar efeitos duplicados ao repetir uma execução.</li>
+              <li>Compare ingestão, shortcuts e mirroring pela origem, suporte e necessidade de copiar ou replicar dados; não escolha só pelo nome do recurso.</li>
+              <li>Leia operações de SQL, PySpark e KQL: filtros, joins, agrupamentos, tipos, duplicados e valores ausentes. Explique a granularidade do resultado.</li>
+              <li>Para streaming, identifique engine, origem, destino, event time, tolerância a dados tardios e windowing. Revise também as opções de shortcuts e Query acceleration em Real-Time Intelligence.</li>
+            </ul>
+            <p><a href="#dominio-2">Revisar teoria</a> · <a href="#lab-2">Lab 2</a> · <a href="#lab-3">Lab 3</a></p>
+          </article>
+          <article class="card">
+            <h4>Domain 3 · Monitor and optimize</h4>
+            <ul>
+              <li>Localize a execução e a etapa com falha antes de propor uma correção. Diferencie problemas de acesso, conexão, schema, código e capacidade com base em evidências.</li>
+              <li>Revise erros de pipeline, Dataflow Gen2, notebook, Eventhouse, Eventstream, T-SQL e OneLake shortcut; não estude apenas um workload.</li>
+              <li>Relacione monitoring de ingestão, transformação e semantic model refresh com métricas e alertas adequados.</li>
+              <li>Para otimizar, registre uma baseline, formule uma hipótese, altere uma variável e compare desempenho e correção. Aumentar capacidade não é diagnóstico.</li>
+            </ul>
+            <p><a href="#dominio-3">Revisar teoria e demo</a></p>
+          </article>
+          <article class="card">
+            <h4>Como transformar um lab em preparação real</h4>
+            <p>Execute o roteiro oficial, registre o resultado esperado e depois refaça uma parte sem copiar os passos. Altere um requisito de forma controlada e explique o que muda na solução.</p>
+            <p>Se investigar uma falha, use apenas um workspace de treinamento. Registre sintoma, evidência, causa, correção e verificação. Os scripts desta página são apoio, não cobertura completa de todos os objetivos.</p>
+            <p><a href="#scripts-demos">Preparar os scripts e demos</a> · <a href="#capstone">Aplicar no projeto integrador</a></p>
+          </article>
+        </div>
+
+        <h3>4. Leia questões de cenário com um método consistente</h3>
+        <figure class="diagram">
+          <div class="flow" aria-label="Método sugerido para resolver cenários">
+            <div class="flow-step"><span><strong>1 · Pedido</strong>O que entregar?</span></div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>2 · Restrições</strong>O que não pode mudar?</span></div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>3 · Evidência</strong>Qual dado decide?</span></div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span><strong>4 · Escolha</strong>Atende a tudo?</span></div>
+          </div>
+          <figcaption>Método didático do grupo, não uma fórmula oficial de resolução ou previsão das perguntas do exame.</figcaption>
+        </figure>
+        <ol>
+          <li><strong>Leia o pedido exato.</strong> Identifique se a questão pede um recurso, uma configuração, uma sequência ou um diagnóstico. Observe a quantidade de respostas solicitadas.</li>
+          <li><strong>Extraia as restrições.</strong> Procure latência, volume, origem/destino, permissões, linguagem, esforço operacional e necessidade de manter dados no local de origem. Use somente condições dadas pelo enunciado.</li>
+          <li><strong>Elimine por incompatibilidade demonstrável.</strong> Uma alternativa pode ser válida em outro contexto e ainda assim não atender ao requisito atual. Não invente uma restrição para eliminá-la.</li>
+          <li><strong>Valide a escolha inteira.</strong> Em código, confira tipos, filtros, granularidade e resultado; em sequência, confira dependências; em segurança, confira a identidade e a camada de controle.</li>
+          <li><strong>Respeite a navegação apresentada.</strong> Leia avisos antes de avançar, encerrar uma seção ou iniciar uma pausa. Não pressuponha que poderá voltar a qualquer questão.</li>
+        </ol>
+        <div class="callout"><strong>Exemplo de raciocínio — não é questão real:</strong> um pipeline falhou depois de gravar parte dos dados e será reexecutado. O requisito é não duplicar o resultado. O raciocínio deve considerar o estado já persistido e uma estratégia de reprocessamento idempotente; apenas configurar retry não demonstra que o requisito será atendido.</div>
+
+        <h3>5. Gerencie o tempo e use o Microsoft Learn de forma pontual</h3>
+        <p><strong>Recomendação do grupo:</strong> no início, confira tempo, quantidade de itens e instruções de cada seção. Distribua o tempo pelo trabalho restante, não por uma quantidade de questões presumida. Como exercício de treino, um orçamento de 85 minutos para resolução e 15 para revisão soma os 100 minutos publicados; adapte-o à interface, aos componentes e à duração efetiva da sua prova.</p>
+        <ul>
+          <li>Se não avançar em uma questão, escolha a alternativa mais sustentada pelas evidências e marque para revisão <strong>quando a interface permitir</strong>. A Microsoft informa que não há desconto de pontos por resposta incorreta; não deixe um item vazio só por receio de errar.</li>
+          <li>Nas revisões permitidas, priorize itens sem resposta e dúvidas específicas. Mude uma resposta quando encontrar um motivo técnico ou uma condição que havia ignorado, não por alternar entre palpites.</li>
+          <li>A política oficial permite Microsoft Learn integrado em exames associate e expert. O acesso é limitado ao domínio learn.microsoft.com, sem Q&amp;A, Practice Assessments ou perfil; sites externos, como GitHub, ficam bloqueados.</li>
+          <li>O relógio continua durante a consulta, sem tempo adicional. Treine localizar uma limitação ou configuração específica; não planeje aprender todo o assunto durante a prova. Ctrl+F/Command+F busca na página do Learn, não no enunciado do exame.</li>
+        </ul>
+        <div class="callout warning"><strong>Pausas:</strong> segundo a <a href="#fonte-experiencia">política oficial</a>, o relógio continua e você não poderá retornar às questões vistas antes de iniciar uma pausa, mesmo sem resposta ou marcadas para revisão. Revise-as primeiro e use o comando de pausa da interface; siga as instruções do fiscal. Pausa não autoriza consulta a materiais externos.</div>
+
+        <h3>6. Use a última semana para consolidar, não decorar</h3>
+        <p>Combine estas atividades com a <a href="#roteiro">Semana 4</a>. A sequência abaixo é uma recomendação do grupo e pode exigir mais tempo conforme as lacunas encontradas.</p>
+        <ol>
+          <li><strong>Início da semana:</strong> compare seu diagnóstico com todos os objetivos atuais. Reforce o domínio mais fraco sem abandonar os outros dois.</li>
+          <li><strong>Durante a semana:</strong> refaça uma prática de batch, uma de streaming e uma investigação de falha. Explique permissões e implantação da solução de ponta a ponta.</li>
+          <li><strong>Dois a três dias antes:</strong> faça uma rodada de prática cronometrada, sem ajuda. Use este <a href="#simulado">simulado de 15 perguntas</a> como revisão curta, não como reprodução da duração ou complexidade da prova real. Revise os erros e os acertos sem justificativa.</li>
+          <li><strong>Na véspera:</strong> revise suas anotações curtas, explore o <a href="https://mscertdemo-pt-br.starttest.com/">Exam Sandbox em português</a> e confira os preparativos. Evite substituir o descanso por uma maratona de conteúdo novo.</li>
+        </ol>
+        <p><strong>Sinal de preparação:</strong> você resolve cenários novos e explica por que as outras alternativas não atendem, executa tarefas essenciais e encontra evidências de falha. Não há percentual de acertos neste site que certifique prontidão ou garanta aprovação.</p>
+
+        <h3>7. Checklist para agendar e para o dia do exame</h3>
+        <p>Marque para sua revisão nesta sessão; estas marcações não são salvas ao recarregar a página.</p>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> Conferi os objetivos vigentes e tenho evidências de prática nos três domínios.</label></li>
+          <li><label><input type="checkbox"> Escolhi o idioma no agendamento. Português (Brasil) está listado na página da certificação; confirmei a disponibilidade e o horário, incluindo o fuso.</label></li>
+          <li><label><input type="checkbox"> Verifiquei o perfil de certificação e a identificação aceita. Para OnVUE, o nome deve corresponder exatamente ao documento exigido.</label></li>
+          <li><label><input type="checkbox"> Se preciso de accommodations, solicitei antes de agendar, conforme as orientações oficiais.</label></li>
+          <li><label><input type="checkbox"> Para exame online, executei o system test no mesmo computador, rede e local; conferi os requisitos atuais do OnVUE.</label></li>
+          <li><label><input type="checkbox"> Preparei ambiente privativo, mesa sem materiais e monitores extras desconectados; li as regras de check-in e supervisão. Se presencial, confirmei endereço e instruções do test center.</label></li>
+          <li><label><input type="checkbox"> Explorei a navegação no Exam Sandbox e entendi as consequências de pausas e encerramento de seções.</label></li>
+          <li><label><input type="checkbox"> Reservei tempo para check-in. Se surgir problema técnico, usarei o canal de suporte/fiscal indicado, sem tentar contornar o ambiente de prova.</label></li>
+        </ul>
+        <p class="small">Consulte <a href="#fonte-online">as orientações para exames online</a> e <a href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam">a preparação oficial</a>. No exame online, o suporte do fiscal pode ser em inglês mesmo que a prova seja em português.</p>
+
+        <h3>8. Evite atalhos que prejudicam a preparação</h3>
+        <ul>
+          <li><strong>Não use dumps ou questões vazadas.</strong> Estude material autorizado e cenários originais. Não registre, reproduza ou compartilhe perguntas reais após a prova.</li>
+          <li><strong>Não confunda familiaridade com domínio.</strong> Reconhecer uma resposta já vista não substitui resolver um problema novo ou executar a tarefa.</li>
+          <li><strong>Não transforme dicas em regras absolutas.</strong> “Sempre use notebook”, “sempre aumente a capacidade” ou “shortcut sempre substitui ingestão” ignoram requisitos, suporte e limitações.</li>
+          <li><strong>Não use ajuda externa durante o exame.</strong> O Learn integrado permitido não autoriza este guia, anotações pessoais, chats, ferramentas de IA ou assistência de outras pessoas.</li>
+        </ul>
+
+        <h3>9. Depois da prova: transforme o resultado em próximo passo</h3>
+        <p>Use o score report para identificar áreas fortes e fracas. As barras por domínio não mostram o número de acertos e não podem ser somadas para reconstruir a nota. Se precisar refazer, retome práticas nos tópicos mais fracos e confira a política vigente de retake antes de agendar. No grupo, compartilhe aprendizados e fontes públicas, nunca conteúdo confidencial da prova.</p>
+        <div class="callout success"><strong>Resumo da estratégia:</strong> objetivo oficial → estudo direcionado → prática com evidência → explicação sem roteiro → revisão das lacunas. A melhor preparação é conseguir aplicar o conhecimento, não apenas reconhecer termos.</div>
+      </section>
+
+      <section id="simulado">
+        <span class="domain">Prática autoral · Não oficial</span>
+        <h2>Simulado interativo DP-700</h2>
+        <p class="lead">15 questões, em cinco etapas de três perguntas. Sugestão: 25 minutos, sem consultar o conteúdo. Avance ou volte sem perder suas respostas. Na última etapa, clique em “Corrigir simulado” para ver a pontuação total e navegue entre as etapas para revisar as explicações.</p>
+        <div class="callout warning"><strong>Nota:</strong> questões originais, escritas para praticar os objetivos publicados. Não são perguntas reais, oficiais, nem previsão do conteúdo específico da sua prova.</div>
+        <div class="quiz-progress" aria-label="Progresso do simulado"><span id="quiz-bar"></span></div>
+        <p id="quiz-progress-text" class="small" aria-live="polite">0 de 15 respondidas</p>
+        <form id="quiz-form">
+          <h3 id="quiz-page-status" tabindex="-1" aria-live="polite"></h3>
+          <div id="quiz-questions"></div>
+          <div class="quiz-controls">
+            <button type="button" class="button secondary" id="quiz-previous">Anterior</button>
+            <button type="button" class="button" id="quiz-next">Próximas 3 perguntas</button>
+            <button type="button" class="button" id="grade-quiz">Corrigir simulado</button>
+            <button type="button" class="button secondary" id="reset-quiz">Refazer</button>
+            <span id="quiz-result" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section id="glossario">
+        <span class="domain">Consulta rápida</span>
+        <h2>Glossário essencial</h2>
+        <dl>
+          <dt><strong>OneLake</strong></dt><dd>Camada lógica de armazenamento unificada do Fabric para dados analíticos.</dd>
+          <dt><strong>Lakehouse</strong></dt><dd>Item que combina padrões de lake com tabelas e experiências de engenharia/consulta.</dd>
+          <dt><strong>Shortcut</strong></dt><dd>Referência a dados em um local suportado, sem uma cópia tradicional gerenciada como ingestão local.</dd>
+          <dt><strong>Mirroring</strong></dt><dd>Replicação contínua de fontes suportadas para análise no Fabric, sujeita às capacidades e limitações do conector.</dd>
+          <dt><strong>Watermark</strong></dt><dd>Valor de controle que indica até onde uma carga incremental foi processada/confirmada.</dd>
+          <dt><strong>Idempotência</strong></dt><dd>Propriedade pela qual repetir uma operação produz o mesmo estado final, sem efeitos duplicados indesejados.</dd>
+          <dt><strong>RLS / CLS / OLS</strong></dt><dd>Controles de segurança associados a linhas, colunas e objetos; suporte e configuração variam por item/engine.</dd>
+          <dt><strong>Eventstream</strong></dt><dd>Recurso Fabric para receber, transformar/rotear e enviar fluxos de eventos a destinos suportados.</dd>
+          <dt><strong>Eventhouse / KQL</strong></dt><dd>Ambiente e linguagem orientados a exploração/consulta analítica de eventos e dados temporais.</dd>
+          <dt><strong>Watermark de streaming</strong></dt><dd>Limite temporal usado pela abordagem de processamento para definir tolerância a eventos tardios.</dd>
+        </dl>
+      </section>
+
+      <section id="fontes">
+        <span class="domain">Continue aprendendo</span>
+        <h2>Fontes oficiais e próximos passos</h2>
+        <p class="small">As fontes externas abrem nesta mesma aba. Use Voltar no navegador para retornar ao guia; a avaliação de prática pode exigir login.</p>
+        <ul class="resource-list">
+          <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/" target="_blank" rel="noopener noreferrer">Microsoft Certified: Fabric Data Engineer Associate</a> — visão da certificação, duração do exame, prática e agendamento.</li>
+          <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700" target="_blank" rel="noopener noreferrer">Study Guide oficial DP-700</a> — competências vigentes desde 19 de outubro de 2026; guia consultado em 30 de outubro de 2026.</li>
+          <li id="fonte-pontuacao"><a href="https://learn.microsoft.com/en-us/credentials/certifications/exam-scoring-reports">Exam scoring and score reports</a> — nota em escala, ausência de penalização por erro e interpretação do resultado.</li>
+          <li id="fonte-experiencia"><a href="https://learn.microsoft.com/en-us/credentials/support/exam-duration-exam-experience">Exam duration and exam experience</a> — tempo, navegação, pausas e acesso integrado ao Microsoft Learn.</li>
+          <li id="fonte-online"><a href="https://learn.microsoft.com/en-us/credentials/certifications/online-exams">About online exams with Pearson VUE</a> — system test, identificação, ambiente e conduta.</li>
+          <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam">Prepare for an exam</a> — preparação, limites dos Practice Assessments e Exam Sandbox.</li>
+          <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/data-engineering-overview" target="_blank" rel="noopener noreferrer">Visão geral de engenharia de dados no Microsoft Fabric</a>.</li>
+          <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebookutils/notebookutils-runtime" target="_blank" rel="noopener noreferrer">NotebookUtils runtime context</a> — fonte dos scripts dos Domains 1 e 3 e do Lab 1.</li>
+          <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/notebook-activity" target="_blank" rel="noopener noreferrer">Notebook activity</a> — configuração da atividade no Lab 1.</li>
+          <li><a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/02-analyze-spark.html" target="_blank" rel="noopener noreferrer">Analyze data with Apache Spark in Fabric</a> — dados/schema e scripts de leitura, aggregation e distinct do Domain 2 e Lab 2.</li>
+          <li><a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/18-monitor-hub.html" target="_blank" rel="noopener noreferrer">Monitor Fabric activity in the monitoring hub</a> — roteiro de monitoramento do Domain 3.</li>
+          <li><a href="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/09-real-time-analytics-eventstream.html" target="_blank" rel="noopener noreferrer">Ingest real-time data with Eventstream</a> — configuração e scripts KQL do Lab 3.</li>
+          <li><a href="https://aka.ms/examdemo" target="_blank" rel="noopener noreferrer">Exam Sandbox</a> — familiarize-se com a experiência de prova.</li>
+          <li><a href="https://aiskillsnavigator.microsoft.com/credentials/cert-b2a43e2d791e9170d795887b92b8b677423652c07d79f710ec00ded962f01232" target="_blank" rel="noopener noreferrer">Practice Assessment</a> — a página da certificação direciona ao AI Skills Navigator; pode exigir login.</li>
+        </ul>
+        <div class="callout success"><strong>Plano final:</strong> refaça o simulado após revisar suas lacunas, consulte o study guide oficial para atualizações e pratique explicar decisões de ponta a ponta. Estude os objetivos — não decore respostas.</div>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">
+    Material didático independente em português. Microsoft Fabric e DP-700 são marcas/produtos da Microsoft. Consulte a documentação oficial para detalhes atuais.
+  </footer>
+  <script>
+    const questions = [
+      {
+        domain: "Implementar e gerenciar",
+        text: "Uma equipe precisa coordenar cópia de dados, execução de notebook e uma validação dependente, com execução agendada. Qual desenho atende melhor ao papel de orquestração?",
+        options: ["Colocar toda a coordenação dentro de um único dashboard.", "Usar um pipeline para coordenar atividades e dependências, deixando a transformação de código no notebook.", "Usar somente um rótulo de sensibilidade para executar as etapas.", "Criar um shortcut para substituir o agendamento."],
+        answer: 1,
+        explanation: "Pipelines coordenam atividades, dependências e schedules; notebooks podem executar transformação programável. Rótulos e shortcuts não são mecanismos de orquestração."
+      },
+      {
+        domain: "Implementar e gerenciar",
+        text: "Uma analista pode abrir um item, mas deve visualizar somente as linhas da própria região. O que deve ser avaliado além das permissões de acesso ao item?",
+        options: ["Aumentar a capacidade Spark.", "Aplicar um controle de dados apropriado, como RLS quando compatível com o item e cenário.", "Endossar o item como certificado.", "Criar um pipeline de execução diária."],
+        answer: 1,
+        explanation: "Permissão para acessar o item não define sozinha quais linhas podem ser consultadas. Avalie RLS ou o controle apropriado e teste com identidades representativas."
+      },
+      {
+        domain: "Implementar e gerenciar",
+        text: "Qual afirmação descreve melhor a relação entre rótulo de sensibilidade e permissão?",
+        options: ["O rótulo substitui todos os controles de acesso.", "O rótulo classifica/protege o item conforme o recurso; permissões continuam precisando ser administradas.", "O rótulo cria automaticamente uma deployment pipeline.", "O rótulo transforma uma carga completa em incremental."],
+        answer: 1,
+        explanation: "Classificação e permissões têm papéis diferentes. Não presuma que aplicar um rótulo substitui a configuração de autorização."
+      },
+      {
+        domain: "Implementar e gerenciar",
+        text: "Qual fluxo reduz risco ao mover alterações de artefatos entre desenvolvimento, teste e produção?",
+        options: ["Editar produção diretamente e documentar depois.", "Versionar, revisar/testar, promover por estágios e validar o ambiente de destino.", "Fazer cópia manual sem verificar conexões.", "Desabilitar auditoria para evitar ruído."],
+        answer: 1,
+        explanation: "ALM controlado combina versionamento, validação e promoção governada; depois da implantação ainda é necessário verificar conexões, permissões e comportamento."
+      },
+      {
+        domain: "Implementar e gerenciar",
+        text: "Uma transformação visual de dados de complexidade moderada é mantida por uma equipe que prefere Power Query/low-code. Qual opção deve ser considerada?",
+        options: ["Dataflow Gen2.", "Audit log.", "Deployment pipeline como engine de transformação.", "Sensitivity label."],
+        answer: 0,
+        explanation: "Dataflow Gen2 é uma opção de transformação low-code. A escolha final depende de conectores, escala e requisitos; pipeline coordena, mas não é em si a engine de transformação."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Um conjunto de dados cresce rapidamente e a origem fornece uma coluna confiável de atualização. O que normalmente favorece uma carga incremental?",
+        options: ["Reler tudo sempre, mesmo que não haja alteração.", "Ler somente alterações desde um ponto confirmado, com estratégia segura de retry e reconciliação.", "Ignorar atualizações antigas e exclusões sem verificar.", "Avançar o watermark antes de confirmar a escrita."],
+        answer: 1,
+        explanation: "Incremental pode reduzir leitura e duração, mas exige mudança detectável, watermark seguro, reexecução idempotente e estratégia para updates/deletes."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Você precisa permitir que um Lakehouse acesse dados em um caminho suportado sem criar a cópia tradicional de ingestão. Qual conceito é mais relevante?",
+        options: ["OneLake shortcut.", "Dynamic data masking.", "Deployment stage.", "Spark autoscale como substituto de armazenamento."],
+        answer: 0,
+        explanation: "Um shortcut referencia dados em local suportado. Verifique disponibilidade da origem, permissões e implicações de desempenho."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Na tabela de pedidos, há várias linhas com o mesmo order_id. Qual é a melhor primeira atitude?",
+        options: ["Somar todas e presumir que são pedidos diferentes.", "Definir granularidade e regra de deduplicação/sobrevivência com base no significado do negócio.", "Remover linhas aleatoriamente.", "Mascarar order_id."],
+        answer: 1,
+        explanation: "Antes de deduplicar, entenda a granularidade e qual registro representa a versão válida (por exemplo, o evento mais recente), preservando rastreabilidade."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Para analisar entregas quase em tempo real e consultar eventos com KQL, qual combinação de conceitos do Fabric merece avaliação?",
+        options: ["Eventstream e Eventhouse/KQL.", "Somente database project.", "Somente sensibilidade e endosso.", "Dataflow Gen2 como requisito para toda consulta de eventos."],
+        answer: 0,
+        explanation: "Eventstream pode processar/rotear eventos e Eventhouse com KQL atende a cenários analíticos de eventos. O desenho depende de origem, latência e destino."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Uma equipe estuda como agrupar eventos em intervalos durante o processamento de streaming. Qual habilidade está explicitamente incluída no Study Guide DP-700?",
+        options: ["Create windowing functions.", "Create deployment pipelines.", "Apply sensitivity labels.", "Configure workspace domains."],
+        answer: 0,
+        explanation: "Create windowing functions é um objetivo explícito em Ingest and transform streaming data. A sintaxe e os tipos disponíveis dependem do mecanismo documentado."
+      },
+      {
+        domain: "Ingerir e transformar",
+        text: "Quais opções de processamento de streaming aparecem nos objetivos do Study Guide?",
+        options: ["Eventstream, Spark Structured Streaming e KQL.", "Dataflow Gen2, deployment pipelines e audit logs.", "Sensitivity labels, shortcuts e database projects.", "Semantic model refresh, T-SQL e workspace domains."],
+        answer: 0,
+        explanation: "O Study Guide cita Eventstream, Spark Structured Streaming e KQL em Ingest and transform streaming data."
+      },
+      {
+        domain: "Monitorar e otimizar",
+        text: "O pipeline terminou com sucesso, mas o relatório mostra dados antigos. Qual sequência de investigação é mais completa?",
+        options: ["Concluir que o relatório está correto porque o pipeline foi bem-sucedido.", "Verificar frescor da fonte, transformação/dependências e atualização do modelo semântico.", "Aumentar Spark imediatamente.", "Remover o alerta de refresh."],
+        answer: 1,
+        explanation: "A cadeia não termina necessariamente no pipeline. A fonte pode estar atrasada, uma transformação downstream pode não ter rodado, ou o modelo semântico pode não ter sido atualizado."
+      },
+      {
+        domain: "Monitorar e otimizar",
+        text: "Um shortcut deixou de disponibilizar dados após uma alteração na origem. O que verificar primeiro?",
+        options: ["Caminho/localização, disponibilidade da origem e permissões.", "Layout de uma tabela sem relação.", "Apenas o tema do workspace.", "O endosso do relatório."],
+        answer: 0,
+        explanation: "Um shortcut depende de localização/origem suportada e acesso. Investigue mudança de caminho, indisponibilidade e permissões antes de alterar outras camadas."
+      },
+      {
+        domain: "Monitorar e otimizar",
+        text: "Um job Spark está lento. Qual é o próximo passo mais confiável antes de aumentar recursos?",
+        options: ["Medir e localizar o gargalo; examinar entrada, plano, skew, shuffle e utilização.", "Aumentar recursos sem coletar evidência.", "Reescrever todo o pipeline.", "Desabilitar todas as verificações de qualidade."],
+        answer: 0,
+        explanation: "Ajustes devem responder à causa observada. Skew, shuffle, particionamento, entrada ou fonte podem ser o gargalo; escalar não resolve todos os casos."
+      },
+      {
+        domain: "Monitorar e otimizar",
+        text: "Qual alerta operacional é mais acionável?",
+        options: ["Um alerta sem dono para qualquer evento de log.", "Alerta de frescor acima do SLA com responsável, contexto e primeira ação definida.", "Um lembrete anual sem condição.", "Uma notificação de que um item existe."],
+        answer: 1,
+        explanation: "Alertas úteis vinculam sinal a limite operacional, dono e resposta. Isso facilita reduzir o tempo de detecção e recuperação."
+      }
+    ].slice(0, 15);
+
+    const container = document.getElementById("quiz-questions");
+    const form = document.getElementById("quiz-form");
+    const progressText = document.getElementById("quiz-progress-text");
+    const progressBar = document.getElementById("quiz-bar");
+    const result = document.getElementById("quiz-result");
+    const pageSize = 3;
+    const pageCount = Math.ceil(questions.length / pageSize);
+    let currentPage = 0;
+    const pageStatus = document.getElementById("quiz-page-status");
+    const previousButton = document.getElementById("quiz-previous");
+    const nextButton = document.getElementById("quiz-next");
+    const gradeButton = document.getElementById("grade-quiz");
+
+    function showPage(focusHeading = false) {
+      const start = currentPage * pageSize;
+      container.querySelectorAll(".question").forEach((item, index) => {
+        item.hidden = index < start || index >= start + pageSize;
+      });
+      pageStatus.textContent = `Etapa ${currentPage + 1} de ${pageCount} · Perguntas ${start + 1}–${Math.min(start + pageSize, questions.length)} de ${questions.length}`;
+      previousButton.disabled = currentPage === 0;
+      nextButton.hidden = currentPage === pageCount - 1;
+      gradeButton.hidden = currentPage !== pageCount - 1;
+      if (focusHeading) pageStatus.focus();
+    }
+
+    function clearCorrection() {
+      container.querySelectorAll(".feedback").forEach((item) => {
+        item.className = "feedback";
+        item.textContent = "";
+      });
+      result.textContent = "";
+    }
+
+    function renderQuestions() {
+      container.innerHTML = questions.map((q, i) => `
+        <fieldset class="card question" data-question="${i}">
+          <legend><span class="domain">${q.domain}</span><br>${i + 1}. ${q.text}</legend>
+          ${q.options.map((option, j) => `
+            <label class="option">
+              <input type="radio" name="q${i}" value="${j}">
+              <span>${option}</span>
+            </label>`).join("")}
+          <div class="feedback" id="feedback-${i}" aria-live="polite"></div>
+        </fieldset>`).join("");
+    }
+
+    function updateProgress() {
+      const answered = questions.reduce((total, _, i) => total + (form.querySelector(`input[name="q${i}"]:checked`) ? 1 : 0), 0);
+      progressText.textContent = `${answered} de ${questions.length} respondidas`;
+      progressBar.style.width = `${(answered / questions.length) * 100}%`;
+    }
+
+    function gradeQuiz() {
+      let score = 0;
+      let answered = 0;
+      questions.forEach((q, i) => {
+        const selected = form.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback-${i}`);
+        feedback.className = "feedback show";
+        if (!selected) {
+          feedback.classList.add("incorrect");
+          feedback.textContent = `Não respondida. ${q.explanation}`;
+          return;
+        }
+        answered++;
+        const correct = Number(selected.value) === q.answer;
+        if (correct) score++;
+        feedback.classList.add(correct ? "correct" : "incorrect");
+        feedback.textContent = `${correct ? "Correta. " : "Reveja. "}${q.explanation}`;
+      });
+      const percent = Math.round((score / questions.length) * 100);
+      result.textContent = `Resultado: ${score}/${questions.length} (${percent}%). ${answered < questions.length ? `Você deixou ${questions.length - answered} questão(ões) sem resposta. ` : ""}${percent >= 80 ? "Ótimo resultado de prática; revise ainda as justificativas." : "Use as justificativas para revisar os objetivos e tente novamente."}`;
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    renderQuestions();
+    showPage();
+    form.addEventListener("submit", (event) => event.preventDefault());
+    form.addEventListener("change", () => {
+      clearCorrection();
+      updateProgress();
+    });
+    previousButton.addEventListener("click", () => {
+      if (currentPage > 0) currentPage--;
+      showPage(true);
+    });
+    nextButton.addEventListener("click", () => {
+      if (currentPage < pageCount - 1) currentPage++;
+      showPage(true);
+    });
+    gradeButton.addEventListener("click", gradeQuiz);
+    document.getElementById("reset-quiz").addEventListener("click", () => {
+      form.reset();
+      clearCorrection();
+      currentPage = 0;
+      updateProgress();
+      showPage(true);
+    });
+
+    document.querySelectorAll("[data-demo]").forEach((demo) => {
+      const steps = [...demo.querySelectorAll(".demo-step")];
+      const previous = demo.querySelector("[data-demo-prev]");
+      const next = demo.querySelector("[data-demo-next]");
+      const status = demo.querySelector(".demo-status");
+      let step = 0;
+      function updateDemo() {
+        steps.forEach((item, index) => {
+          item.classList.toggle("active", index === step);
+        });
+        previous.disabled = step === 0;
+        next.disabled = step === steps.length - 1;
+        status.textContent = `Passo ${step + 1} de ${steps.length} · roteiro, sem execução no Fabric`;
+      }
+      previous.addEventListener("click", () => {
+        if (step > 0) step--;
+        updateDemo();
+      });
+      next.addEventListener("click", () => {
+        if (step < steps.length - 1) step++;
+        updateDemo();
+      });
+      updateDemo();
+    });
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const code = document.getElementById(button.dataset.copy);
+        const status = button.closest(".snippet-actions").querySelector(".snippet-status");
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          status.textContent = "Script copiado. Execute no ambiente indicado, não nesta página.";
+        } catch {
+          code.closest("details").open = true;
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          status.textContent = "Cópia automática indisponível. Código selecionado: use Ctrl+C (ou ⌘C no Mac).";
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-download]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const code = document.getElementById(button.dataset.download);
+        const blob = new Blob([code.textContent + "\n"], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = code.dataset.filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+        button.closest(".snippet-actions").querySelector(".snippet-status").textContent =
+          `Download solicitado: ${code.dataset.filename}. Confira os pré-requisitos antes de executar.`;
+      });
+    });
+
+    function revealAnchor(hash, focusTarget = false) {
+      if (!hash || hash === "#") return;
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (!target) return;
+      for (let parent = target.parentElement; parent; parent = parent.parentElement) {
+        if (parent.tagName === "DETAILS") parent.open = true;
+      }
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: "instant", block: "start" });
+        if (focusTarget) {
+          if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+        }
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        revealAnchor(link.hash, true);
+      });
+    });
+    window.addEventListener("hashchange", () => revealAnchor(window.location.hash));
+    window.addEventListener("load", () => revealAnchor(window.location.hash));
+    revealAnchor(window.location.hash);
+
+    document.querySelectorAll('a[href^="https:"]').forEach((link) => {
+      link.target = "_self";
+    });
+
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      const url = new URL(window.location.href);
+      url.searchParams.set("scoutTheme", next);
+      window.history.replaceState({}, "", url);
+      themeToggle.textContent = next === "dark" ? "☀ Tema" : "☾ Tema";
+    });
+    if (document.documentElement.getAttribute("data-theme") === "dark") themeToggle.textContent = "☀ Tema";
+  </script>
+</body>
+</html>
